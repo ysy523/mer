@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align:center">Login ver</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="false" padding>
+<ion-list lines="none">
+  <form #form="ngForm" (ngSubmit)="logForm(form)" novalidate>
+    <ion-item text-wrap>
+      <ion-label fixed>Merchant Code</ion-label>
+      <ion-input mode="wp" [(ngModel)]="todo.loginid" #logininput name="loginid" inputmode="numeric" type="number" myTabindex="1" required pattern="([0-9]{8})" clearInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Password</ion-label>
+      <ion-input mode="wp" [(ngModel)]="todo.pwd" #loginpass name="pwd" type="password"  myTabindex="2" clearInput></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Remember You</ion-label>
+    
+      <ion-checkbox [(ngModel)]="todo.rmbme" name="rmbme" color="danger" slot="start"></ion-checkbox>
+    </ion-item>
+    
+    <div padding>
+      <ion-button type="submit" color="danger" size="large" expand="block">Sign In</ion-button>
+    </div>
+  </form>
+  
+</ion-list>
+</ion-content>
