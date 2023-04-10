@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LogComponent } from './log/log.component';
 // import { MenuComponent } from './menu/menu.component';
 // import { PinComponent } from './pin/pin.component';
-// import { PrepaidComponent } from './prepaid/prepaid.component';
+import { PrepaidComponent } from './prepaid/prepaid.component';
 // import { PrepaidlistComponent } from './prepaidlist/prepaidlist.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { RemittanceComponent } from './remittance/remittance.component';
@@ -62,7 +62,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 @NgModule({
-  declarations: [AppComponent,LoginComponent,AnnouncementComponent,HomeComponent, ReceiptComponent,RemittanceComponent ,CustomSelectComponent,GmodalComponent,KadarComponent,EStampComponent,RedeemComponent,BookinglistComponent,InviteComponent,LogComponent,MyFilterPipe,MyFilterPipe2,MyFilterPipe3,MyTelcoFilterPipe,MyTelcoTypeFilterPipe,TabIndexDirective],
+  declarations: [AppComponent,LoginComponent,AnnouncementComponent,HomeComponent, ReceiptComponent,RemittanceComponent ,CustomSelectComponent,GmodalComponent,KadarComponent,EStampComponent,RedeemComponent,BookinglistComponent,InviteComponent,LogComponent,MyFilterPipe,MyFilterPipe2,MyFilterPipe3,MyTelcoFilterPipe,MyTelcoTypeFilterPipe,TabIndexDirective,PrepaidComponent ],
   imports: [BrowserModule, IonicModule.forRoot({_forceStatusbarPadding: true}), AppRoutingModule,FormsModule,IonicImageLoaderModule] ,
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },NavParams,File,WebView, NativeStorage,BluetoothSerial,Camera,BarcodeScanner,InAppBrowser,Sql,MediaCapture ,HTTP  ],
   bootstrap: [AppComponent],

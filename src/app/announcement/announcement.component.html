@@ -9,6 +9,9 @@
     <ion-title mode="ios"  class="ion-text-center" style="color: red; text-transform: uppercase">
       <h6 *ngIf="type=='1'">Pengumuman Penting</h6>
       <h6 *ngIf="type=='2'">Create Transaction PIN</h6>
+      <h6 style ="color: red"  *ngIf="type=='3' && pages==1">Disclaimer</h6>
+      <span style ="color: red ; font-size: 11px;"  *ngIf="type=='3' && pages==2"  [innerHTML] ="a_title" ></span>
+      <span style ="color: red; font-size: 11px;" *ngIf="type=='3' && pages==3" [innerHTML] ="b_title"></span>
     </ion-title>
 
   </ion-toolbar>
@@ -56,4 +59,139 @@
       </ion-row>
     </ion-grid>
   </div>
+
+
+  <div *ngIf="type=='3'">
+    <div *ngIf="pages==1">
+    <div class="scroll-content"  overflow-y="scroll" style="margin:5px;">
+
+    <div style="text-align:left;">
+      <span><h6>{{descrip_en}}</h6></span>
+    </div>
+
+    <!-- <h5 style="font-weight:bold;text-align:center">PERINGATAN MM</h5> -->
+   
+    <h6 style="text-align:left">
+    <span style = "font-weight: bold;">{{des_title_en}} </span> {{sub_descrip_en}}
+    </h6>
+   
+    <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>Penafian</h4></span>
+
+    <div style="text-align:left">
+      <span><h6>{{descrip}}</h6></span>
+    </div>
+    <h6 style="text-align: left">
+      <span style = "font-weight: bold;">{{des_title}}</span> {{sub_descrip}}
+    </h6>
+
+  
+    <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>声明</h4></span>
+   
+   
+    <div style="text-align:left;">
+      <span><h6>{{descrip_cn}} </h6></span>
+    </div>
+
+    <h6 style="text-align:left">
+      <span style = "font-weight: bold;">{{des_title_cn}} </span>{{sub_descrip_cn}}
+    </h6>
+
+    <br>
+    <div  class="ion-text-center">
+    <ion-button  type="submit" color="danger" shape="round" size="small"  (click)="handleAccept()">I Acknowledge (Saya Faham / 我同意)</ion-button>
+     </div>
+    </div>
+    </div>
+
+
+     <div *ngIf="pages==2">
+       
+      <div class="scroll-content"  overflow-y="scroll" style="margin:5px;">
+
+        <!-- <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>Announcement</h4></span> -->
+
+        <div class="ac1">
+          <span ><h6 style="padding-top:3px;" [innerHTML] ="a_content"></h6></span>
+        </div>
+    
+        <!-- <h5 style="font-weight:bold;text-align:center">PERINGATAN MM</h5> -->
+       
+        <!-- <h6 style="text-align:left">
+        <span style = "font-weight: bold;">{{des_title_en}} </span> {{sub_descrip_en}}
+        </h6> -->
+    
+        <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>Notis</h4></span>
+    
+        <div class="ac2">
+          <span ><h6  [innerHTML] ="a_content_my"></h6></span>
+        </div>
+        <!-- <h6 style="text-align: left">
+          <span style = "font-weight: bold;">{{des_title}}</span> {{sub_descrip}}
+        </h6> -->
+    
+      
+        <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>通告</h4></span>
+       
+       
+        <div class="ac3">
+          <span ><h6 [innerHTML] ="a_content_cn"></h6></span>
+        </div>
+    
+        <!-- <h6 style="text-align:left">
+          <span style = "font-weight: bold;">{{des_title_cn}} </span>{{sub_descrip_cn}}
+        </h6> -->
+    
+        <br>
+        <div  class="ion-text-center">
+        <ion-button  type="submit" color="danger" shape="round" size="small"  (click)="handleAccept1()">Close</ion-button>
+         </div>
+        </div>
+   
+      </div>
+
+      <div *ngIf="pages==3">
+       
+        <div class="scroll-content"  overflow-y="scroll" style="margin:5px;"> 
+  
+          <div class="ac1">
+            <span><h6 style="padding-top:3px;" [innerHTML] ="a_content_two"></h6></span>
+          </div>
+      
+          <!-- <h5 style="font-weight:bold;text-align:center">PERINGATAN MM</h5> -->
+         
+          <!-- <h6 style="text-align:left">
+          <span style = "font-weight: bold;">{{des_title_en}} </span> {{sub_descrip_en}}
+          </h6> -->
+      
+          <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>Notis</h4></span>
+      
+          <div class="ac2">
+            <span ><h6  [innerHTML] ="a_content_two_my"></h6></span>
+          </div>
+          <!-- <h6 style="text-align: left">
+            <span style = "font-weight: bold;">{{des_title}}</span> {{sub_descrip}}
+          </h6> -->
+      
+        
+          <span style= "font-weight:bold; color: red; text-transform: uppercase;text-align: center"><h4>通告</h4></span>
+         
+         
+          <div class="ac3">
+            <span ><h6 [innerHTML] ="a_content_two_cn"></h6></span>
+          </div>
+      
+          <!-- <h6 style="text-align:left">
+            <span style = "font-weight: bold;">{{des_title_cn}} </span>{{sub_descrip_cn}}
+          </h6> -->
+      
+          <br>
+          <div  class="ion-text-center">
+          <ion-button  type="submit" size="small" color="danger" shape ="round" (click)="handleAccept2()">Close</ion-button>
+          </div>
+          </div>
+     
+        </div>
+  </div>
+
+
 </ion-content>

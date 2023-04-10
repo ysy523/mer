@@ -1,0 +1,63 @@
+<!--
+  Generated template for the PrepaidmodalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title >
+
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <!-- <span color="primary" showWhen="ios">Cancel</span> -->
+        <ion-icon name="close-outline" showWhen="android,windows"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content overflow-scroll>
+  <ion-card>
+    <ion-card-content style="line-height: 0;">
+      <!--region new format-->
+      <div class="selectable">
+        <h3
+          style="font-weight: bold;text-align: center;margin-bottom: 8px;letter-spacing: 1px; text-transform: capitalize">
+          <span style="text-transform: capitalize">{{txnlog.telco}}</span>
+        </h3>
+        <h4>Tarikh: {{txnlog.timestamp}}</h4>
+        <h4>Transaction ID: {{txnlog.trans_id}}</h4>
+        <h4>Amount: RM {{txnlog.pin_value}}</h4>
+        <!-- <h4 *ngIf="printData['telco'].toLowerCase() == 'eumobile' || printData['telco'].toLowerCase() == 'celcome'">
+          HP: {{printData['eReload_receiver']}}
+        </h4>
+        <h4 *ngIf="!printData['prepaid_pin']">Jenis Pin: {{eReload_title}}</h4>-->
+        <h4 *ngIf="txnlog.pin_serial && txnlog.pin_serial != null">No. Siri: {{txnlog.pin_serial}}</h4>
+        <h4 *ngIf="txnlog.pin_expiry_date">Expiry Date: {{txnlog.pin_expiry_date}}</h4>
+        <h2 *ngIf="txnlog.pin_string" style="font-weight: bold;letter-spacing: 2px;">PIN: {{txnlog.pin_string}}</h2>
+        <!--barcode-->
+        <svg *ngIf="txnlog && txnlog.ppin_ean_code && txnlog.ppin_ean_code != null" #barcode id="barcode"></svg><br>
+        <br>
+        <h4 *ngIf="txnlog.footer" style="margin-bottom: 5px; margin-top: 10px;">{{txnlog.footer}}</h4>
+        <h5 style="margin-bottom: 15px;">{{copy}}</h5>
+
+      </div>
+      <!--endregion-->
+    </ion-card-content>
+  </ion-card>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6"><ion-button style="font-size:11.5px;"
+             type="submit" color="danger" shape="round" size="large" (click)="printShareSelection()">PRINT/SHARE
+            RECEIPT</ion-button></ion-col>
+        <ion-col size="6"><ion-button style="font-size: 11.5px;"
+             type="submit" color="danger" shape="round" size="large" (click)="disconnectPrinter()">DISCONNECT
+            PRINTER</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

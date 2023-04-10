@@ -32,7 +32,11 @@ const routes: Routes = [
   {path :'kadar',component:KadarComponent},
   { path: 'estamp', component: EStampComponent },
   {path :'invite',component:InviteComponent},
-  {path :'redeem',component:RedeemComponent}
+  {path :'redeem',component:RedeemComponent},
+  {
+    path: 'printer-list-modal',
+    loadChildren: () => import('./printer-list-modal/printer-list-modal.module').then( m => m.PrinterListModalPageModule)
+  }
 
   
   // {

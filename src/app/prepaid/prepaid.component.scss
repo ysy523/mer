@@ -1,0 +1,18 @@
+.toolbar-title{
+    width: 85%;
+    padding-bottom: 8px;
+  }
+
+ ion-select {
+    padding-left: 0!important;
+}
+
+ion-select::part(text) {
+  white-space: normal !important; }
+
+
+
+
+  // ion-label {
+  //   flex: 0 0 100% !important;
+  // }

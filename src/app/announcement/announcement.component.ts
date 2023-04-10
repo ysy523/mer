@@ -61,6 +61,10 @@ export class AnnouncementComponent implements OnInit {
 
   ngOnInit() {
 
+    if(this.type =='3'){
+      this.showDis();
+    }
+
     console.log('ionViewDidLoad AnnouncementPage');
     console.log(this.type);
   }
@@ -68,6 +72,121 @@ export class AnnouncementComponent implements OnInit {
   dismiss() {
     this.modalCtrl.dismiss();
   }
+
+  handleAccept(){
+    
+    this.pages = 2;
+   
+  }
+  handleAccept1(){
+
+    this.pages = 3;
+   }
+
+   handleAccept2(){
+    this.dismiss();
+ }
+
+
+ async showDis() {
+
+  let body = {
+    merchant_code: this.tomain.merchantcode,
+    password: this.tomain.password,
+    merchant_trans_id: this.tomain.merchantcode + new Date().valueOf(),
+    appversion: myGlobals.version,
+    platform: this.platform.platforms()[0],
+    device: this.platform.win.navigator.userAgent.toString(),
+    action_id:520,
+    input: { "ok": 1, "action": 'okok' }
+  };
+
+  let loading = await this.loadingCtrl.create({
+    message: 'Please wait...'
+  });
+  await loading.present();
+
+  console.log("--- body ---", body)
+
+  const options: HttpOptions = {
+    url: myGlobals.url + '/ProcessMerchant',
+    data: body,
+    method: 'POST',
+    connectTimeout: myGlobals.timeout,
+    headers: { 'Content-Type': 'application/json' }
+  }
+
+
+  Http.request(options).then(async (data: any) => {
+    try {
+      await loading.dismiss();
+      console.log ("data....",data)
+      if (data.data.header.response_code == 0) {
+        if (data.data.body) {
+          if (data.data.body.outputlist) {
+
+            this.descrip = data.data.body.outputlist.desc
+            this.sub_descrip = data.data.body.outputlist.sub_desc
+            this.sub_descrip_cn = data.data.body.outputlist.sub_desc_cn
+            this.sub_descrip_en = data.data.body.outputlist.sub_desc_en
+            this.descrip_cn = data.data.body.outputlist.desc_cn
+            this.descrip_en = data.data.body.outputlist.desc_en
+            this.des_title = data.data.body.outputlist.title
+            this.des_title_cn = data.data.body.outputlist.title_cn
+            this.des_title_en = data.data.body.outputlist.title_en
+            this.a_content = data.data.body.outputlist.a_content.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_content_my = data.data.body.outputlist.a_content_my.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_content_cn = data.data.body.outputlist.a_content_cn.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_content_two = data.data.body.outputlist.a_content_two.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_content_two_my = data.data.body.outputlist.a_content_my_two.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_content_two_cn = data.data.body.outputlist.a_content_cn_two.replace(/\r\n/g, '<br style="margin: 10px 0;">')
+            this.a_title = data.data.body.outputlist.a_title.replace(/\\/g, '')
+            this.b_title = data.data.body.outputlist.b_title.replace(/\\/g, '')
+
+          }
+        }
+      }
+    } catch (e) {
+
+      await loading.dismiss();
+      console.log("Get disclaimer Ex ERROR!: ", e);
+      const alert = await this.alertCtrl.create({
+        header: 'Get disclaimer Ex Error',
+        message: e + 'Please try again.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+            }
+          }
+        ]
+      })
+
+      await alert.present();
+
+    }
+  }).catch(async err => {
+    await loading.dismiss();
+    console.log("Execption annoucement: ", err);
+    const alert = await this.alertCtrl.create({
+      header: 'Get disclaimer Exception',
+      message: err + 'Please try again.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
+        }
+      ]
+    })
+
+    await alert.present();
+  })
+
+
+}
+
+
 
 
  async getTac() {

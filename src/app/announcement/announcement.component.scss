@@ -4,3 +4,39 @@
     margin-right: auto;
     width: 50%;
 }
+
+.scroll-content {
+    overflow-y: scroll;
+  }
+
+
+.shared-styles{
+    line-height: 1.5;
+    word-wrap: break-word;
+    text-align:left;
+    margin:5px;
+  }
+
+  .ac1 {
+    @extend .shared-styles;
+  }
+
+  .ac2 {
+    @extend .shared-styles;
+  }
+
+  .ac3 {
+    @extend .shared-styles;
+  }
+
+  .ac1 br {
+    padding: 15px;
+  }
+
+  .ac2 br {
+    padding: 15px;
+  }
+
+  .ac3 br {
+    padding: 15px;
+  }

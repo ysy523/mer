@@ -113,7 +113,14 @@ export class HomeComponent implements OnInit {
       // add modal for announment
       const modal = await this.modalCtrl.create({ component: AnnouncementComponent, componentProps: { type: "1", profile: this.tomain }, cssClass: 'announcement' });
       await modal.present();
-      await modal.onDidDismiss()
+
+      await modal.onDidDismiss().then(async(data)=>{
+        const modal2 =  await this.modalCtrl.create({ component: AnnouncementComponent, componentProps: { type: "3", profile: this.tomain }, cssClass: 'announcement' });
+          await modal2.present();
+          console.log("modal2")
+          await modal2.onDidDismiss();
+
+      })
 
     });
 
@@ -124,7 +131,15 @@ export class HomeComponent implements OnInit {
     // add modal for announment
     const modal = await this.modalCtrl.create({ component: AnnouncementComponent, componentProps: { type: "1", profile: this.tomain }, cssClass: 'announcement' });
     await modal.present();
-    await modal.onDidDismiss();
+    await modal.onDidDismiss().then(async(data)=>{
+        
+      const modal2 =  await this.modalCtrl.create({ component: AnnouncementComponent, componentProps: { type: "3", profile: this.tomain }, cssClass: 'announcement' });
+      await modal2.present();
+      console.log("modal2")
+      await modal2.onDidDismiss();
+
+  })
+
 
   }
 
