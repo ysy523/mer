@@ -24,3 +24,34 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+//  Force text-wrap on <ion-select>
+ion-select::part(placeholder),
+ion-select::part(text) {
+  white-space: normal !important;
+}
+// Force text-wrap on <ion-select-option>'s when shown in an Ionic Alert
+ion-alert.select-alert {
+  // These widths are pretty arbitrary, so you're use-case(s) could required different widths:
+  --width: 33vw !important;
+  --max-width: 66vw !important;
+
+  .select-interface-option .alert-radio-label,
+  .select-interface-option .alert-checkbox-label {
+    white-space: normal !important;
+  }
+
+}
+
+.announcement{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    right: 5%;
+    left: 5%;
+    top:5%;
+    bottom:5%;
+}

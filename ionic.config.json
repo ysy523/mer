@@ -1,7 +1,137 @@
 {
-  "name": "mer",
+  "name": "merchantapp",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/VerifyLogin1",
+      "proxyUrl": "http://mmpuchong.mobile-money.com:9001/"
+    },
+    {
+      "path": "/VerifyLogin",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/VerifyLogin"
+    },
+    {
+      "path": "/GetSystemSetting",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetSystemSetting"
+    },
+    {
+      "path": "/GetExchangeRate",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetExchangeRate"
+    },
+    {
+      "path": "/CheckBalance",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/CheckBalance"
+    },
+    {
+      "path": "/GenerateTAC",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GenerateTAC"
+    },
+    {
+      "path": "/IssueMoneyPinPreChecking",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/IssueMoneyPinPreChecking"
+    },
+    {
+      "path": "/IssueMoneyPin",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/IssueMoneyPin"
+    },
+    {
+      "path": "/CheckPinStatus",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/CheckPinStatus"
+    },
+    {
+      "path": "/VoidMoneyPin",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/VoidMoneyPin"
+    },
+    {
+      "path": "/GetCardNoByHP",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetCardNoByHP"
+    },
+    {
+      "path": "/CheckAppVersion",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/CheckAppVersion"
+    },
+    {
+      "path": "/GetTransactionLog",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetTransactionLog"
+    },
+    {
+      "path": "/GetPaymentRequest",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetPaymentRequest"
+    },
+    {
+      "path": "/GetTopUpTransactionLog",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/GetTopUpTransactionLog"
+    },
+    {
+      "path": "/RedeemMoneyPin",
+      "proxyUrl": "https://v2.mobile-money.com.my/EZNewMobileApp/api/EzMobileApp/RedeemMoneyPin"
+    },
+    {
+      "path": "/Live/VerifyLogin",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/VerifyLogin"
+    },
+    {
+      "path": "/Live/GetSystemSetting",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetSystemSetting"
+    },
+    {
+      "path": "/Live/GetExchangeRate",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetExchangeRate"
+    },
+    {
+      "path": "/Live/CheckBalance",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/CheckBalance"
+    },
+    {
+      "path": "/Live/GenerateTAC",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GenerateTAC"
+    },
+    {
+      "path": "/Live/IssueMoneyPinPreChecking",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/IssueMoneyPinPreChecking"
+    },
+    {
+      "path": "/Live/IssueMoneyPin",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/IssueMoneyPin"
+    },
+    {
+      "path": "/Live/CheckPinStatus",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/CheckPinStatus"
+    },
+    {
+      "path": "/Live/VoidMoneyPin",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/VoidMoneyPin"
+    },
+    {
+      "path": "/Live/GetCardNoByHP",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetCardNoByHP"
+    },
+    {
+      "path": "/Live/CheckAppVersion",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/CheckAppVersion"
+    },
+    {
+      "path": "/Live/GetTransactionLog",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetTransactionLog"
+    },
+    {
+      "path": "/Live/GetPaymentRequest",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetPaymentRequest"
+    },
+    {
+      "path": "/Live/GetTopUpTransactionLog",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/GetTopUpTransactionLog"
+    },
+    {
+      "path": "/Live/RedeemMoneyPin",
+      "proxyUrl": "https://ezeelink.mobile-money.com/EZNewMobileApp/api/EzMobileApp/RedeemMoneyPin"
+    },
+    {
+      "path": "/ERemitGetBookingList",
+      "proxyUrl": "http://192.169.2.69:1668/EZNewMobileApp/api/EzMobileApp/ERemitGetBookingList"
+    }
+  ]
 }
