@@ -1,0 +1,1660 @@
+<!--
+  Generated template for the Remittance page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--<ion-menu [content]="mycontent">-->
+  <!--<ion-content>-->
+    <!--<ion-list style="margin-bottom: 0px; height: 100%; display: flex; flex-direction: column;">-->
+				<!--<ion-item menuClose detail-none (click)="menuReset('Remittance')">Remittance</ion-item>-->
+				<!--<ion-item menuClose detail-none (click)="menuReset('DoTopUp')">Fpx TopUp</ion-item>-->
+				<!--<ion-item menuClose detail-none (click)="menuReset('TopUpLog')">Fpx TopUp Log</ion-item>-->
+				<!--<ion-item menuClose detail-none (click)="menuReset('DoBankTopUp')">Bank TopUp</ion-item>-->
+				<!--<ion-item menuClose detail-none (click)="menuReset('DoReportProblem')">Report Problem</ion-item>-->
+				<!--<ion-item style="margin-top: auto" menuClose detail-none (click)="menuReset('Logout')">Logout</ion-item>-->
+    <!--</ion-list>-->
+  <!--</ion-content>-->
+<!--</ion-menu>-->
+
+<ion-header>
+  <ion-toolbar>
+			<!--<button ion-button menuToggle>-->
+				<!--<ion-icon name="menu"></ion-icon>-->
+			<!--</button>-->
+    <ion-buttons slot="start">
+      <ion-button icon-only (click)="pop()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title  class="ion-text-center" style="padding-top:10px;">
+      <span style="font-size:0.6rem; ">ver. {{showversion}}</span><br />
+      <!--Balance : RM {{balance}}-->
+      <span *ngIf="this.pageType == 'DoBankTopUp' && (this.action == 'bank' || this.action == '')">Bank Topup</span>
+      <span *ngIf="this.pageType == 'DoBankTopUp' && this.action == 'fpx'">FPX Topup</span>
+      <span *ngIf="this.pageType == 'DoBankTopUp' && this.action == 'semak'">Semak Bank Topup</span>
+      <span *ngIf="this.pageType == 'DoBankTopUp' && this.action == 'semakfpx'">Semak FPX Topup</span>
+      <span *ngIf="this.pageType == 'Remittance'">Jual Pin</span>
+      <span *ngIf="this.pageType == 'DoReportProblem'">Report Masalah</span>
+      <span *ngIf="this.pageType == 'CekBaki'">Cek Baki</span>
+      <span *ngIf="this.pageType == 'CekAkaun'">Cek Akaun MM</span>
+      <span *ngIf="this.pageType == 'Kadar'">Kadar</span>
+      <span *ngIf="this.pageType == 'CekPin'">Cek Pin</span>
+      <span *ngIf="this.pageType == 'UpdateTxnPin'">Change Txn Pin</span>
+      <span *ngIf="this.pageType == 'eremitCheckStatus'">eRemit Check Status</span>
+      <span *ngIf="this.pageType == 'eremitPay'">eRemit Pay Booking</span>
+      <span *ngIf="this.pageType == 'CekMessage'">Cek Message</span>
+      <span *ngIf="this.pageType == 'TopupUserWallet'">TopUp User Wallet</span>
+    </ion-title>
+  </ion-toolbar>
+  <!--<ion-navbar>-->
+    <!--<ion-title>Log</ion-title>-->
+    <!--<ion-buttons left>-->
+      <!--&lt;!&ndash; button one &ndash;&gt;-->
+      <!--<button ion-button icon-only>-->
+        <!--<ion-icon name="arrow-back"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+
+  <!--</ion-navbar>-->
+
+  <!--region toolbar/title-->
+  <!--<ion-toolbar *ngIf="this.pageType == 'Remittance'" no-border-top>-->
+    <!--<ion-segment (ionChange)="changed()" [(ngModel)]="appType">-->
+	  <!--<ion-segment-button value="Sale" class="salesegmentbutton">-->
+        <!--1.Sale-->
+      <!--</ion-segment-button>-->
+    <!--<ion-segment-button value="Rate" class="ratesegmentbutton">-->
+        <!--2.Rate-->
+      <!--</ion-segment-button>-->
+    <!--<ion-segment-button value="Log" class="txnsegmentbutton">-->
+        <!--3.Transaction-->
+      <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
+  <!--</ion-toolbar>-->
+
+  <ion-toolbar *ngIf="this.pageType == 'DoTopUp'" no-border-top>
+			<ion-title style="text-align:center">Fpx TopUp</ion-title>
+
+	</ion-toolbar>
+
+  <ion-toolbar *ngIf="this.pageType == 'TopUpLog'" no-border-top>
+			<ion-title style="text-align:center">Fpx TopUp Log</ion-title>
+	</ion-toolbar>
+
+	<!--<ion-toolbar *ngIf="this.pageType == 'DoBankTopUp'" no-border-top>-->
+			<!--<ion-title style="text-align:center">Bank TopUp</ion-title>-->
+	<!--</ion-toolbar>-->
+
+  <!--<ion-toolbar *ngIf="this.pageType == 'DoReportProblem'" no-border-top>-->
+			<!--<ion-title style="text-align:center">Report Problem</ion-title>-->
+	<!--</ion-toolbar>-->
+
+  <!--<ion-toolbar *ngIf="this.pageType == 'DoBankTopUp'" no-border-top>-->
+    <!--<ion-segment (ionChange)="changed()" [(ngModel)]="appType">-->
+      <!--<ion-segment-button value="banktu" class="salesegmentbutton">-->
+        <!--Bank Top Up-->
+      <!--</ion-segment-button>-->
+      <!--<ion-segment-button value="fpxtu" class="ratesegmentbutton">-->
+        <!--FPX Top Up-->
+      <!--</ion-segment-button>-->
+      <!--<ion-segment-button value="Log" class="txnsegmentbutton">-->
+        <!--Semak Top Up-->
+      <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
+  <!--</ion-toolbar>-->
+  <!--endregion-->
+
+</ion-header>
+
+
+
+<ion-content #mycontent >
+<!-- class="outer-content"> -->
+	<div #contentz [ngSwitch]="pageType">
+
+		<div *ngSwitchCase="'Remittance'" [ngSwitch]="appType">
+			<div #list *ngSwitchCase="'Sale'">
+				<div [ngSwitch]="saleType">
+					<div *ngSwitchCase="'PreSale'">
+						<ion-list style="min-height: 100%;">
+							<form #presaleform="ngForm" *ngIf="active" (ngSubmit)="saleInputChecking(presaleform, 2)" novalidate> <!--(ngSubmit)="subsaleForm(presaleform)"-->
+	<!-- 							<ion-list> -->
+									<ion-item>
+										<ion-label position="fixed">Country</ion-label>
+				<!-- 				    <ion-input [(ngModel)]="todo.country" type="text" name="country" myTabindex="1"></ion-input> -->
+										<ion-select #country required style="max-width:100% !important; padding-left:0px;" (ngModelChange)="onChange($event)" [(ngModel)]="todo.country" name="country">
+										<ion-select-option *ngFor="let country of countryarray" [value]="country">{{country}}</ion-select-option>
+									</ion-select>
+									</ion-item>
+
+									<ion-item>
+										<ion-label position="fixed">Provider</ion-label>
+				<!-- 				    <ion-input [(ngModel)]="todo.provider" type="text" name="provider" myTabindex="2"></ion-input> -->
+										<ion-select #provider required style="max-width:100% !important; padding-left:0px;" (ngModelChange)="onChange2($event)" [(ngModel)]="todo.provider" name="provider">
+										<ion-select-option *ngFor="let providers of providerarray | myfilter:todo.country" [value]="providers[1]">{{providers[2]}}</ion-select-option>
+									</ion-select>
+									</ion-item>
+
+									<ion-item text-wrap [hidden]="todo.country=='Indonesia'">
+										<ion-label positon="fixed">Collect money from</ion-label>
+	<!-- 							    <ion-label [hidden]="this.provider._text=='IME'" fixed>Bank</ion-label> -->
+	<!-- 							    <ion-label [hidden]="this.provider._text!='IME'" fixed>Collect money from</ion-label> -->
+				<!-- 				    <ion-input [(ngModel)]="todo.bank" type="text" name="bank"  myTabindex="3"></ion-input> -->
+										<ion-select #bank required style="max-width:100% !important; padding-left:0px;" [(ngModel)]="todo.bank" name="bank">
+										<ion-select-option *ngFor="let banks of bankarray | myfilter2:todo.country:todo.provider" [value]="banks[2]">{{banks[3]}}</ion-select-option>
+									</ion-select>
+									</ion-item>
+
+									<!-- <ion-item>
+										<ion-label fixed>Amount</ion-label>
+										<ion-input #amount required [hidden]="!(isFlexIndo || todo.country != 'Indonesia')" [(ngModel)]="todo.amount" type="number" required name="amount" myTabindex="4"></ion-input>
+									<ion-select [hidden]="!(isFlexIndo || todo.country != 'Indonesia')" [(ngModel)]="todo.currency" name="currency" >
+										<ion-option value="1">RM</ion-option>
+										<ion-option *ngFor="let curr of currencyarray | myfilter:todo.country" [value]="curr[1]">{{curr[2]}}</ion-option>
+									</ion-select>
+									<ion-select #pindeno required [hidden]="(isFlexIndo || todo.country != 'Indonesia')" style="max-width:100% !important; padding-left:0px;" placeholder="Select" required [(ngModel)]="todo.pindeno" name="pindeno">
+										<ion-option *ngFor="let pins of pinarray" [value]="pins[0]">{{pins[1]}}, Service Charge {{pins[2]}}</ion-option>
+									</ion-select>
+									</ion-item> -->
+
+									<ion-segment [hidden]="(isFlexIndo || todo.country != 'Indonesia')" style="padding-top:20px;padding-bottom:10px" mode="ios" name="pinType" [(ngModel)]="pinType" color="danger">
+											<ion-segment-button value="NotFlexible">
+												Buy Rp
+											</ion-segment-button>
+											<ion-segment-button value="Flexible">
+												Buy RM
+											</ion-segment-button>
+										</ion-segment>
+
+									<ion-item>
+										<ion-label position="fixed">HP No</ion-label>
+										<ion-input #hpno (ionInput)='onChangeHP($event)' required [(ngModel)]="todo.hpno" type="text" inputmode="numeric" name="hpno" required myTabindex="6"></ion-input>
+										<ion-button type="button" (click)="click2()" color="danger"  item-right>Check</ion-button>
+									</ion-item>
+									<ion-card style="margin-bottom:3px;" [hidden]="hidemsgattnsender">
+										<ion-card-content style="font-weight: bold;">
+												{{todisplay.msgattnsender}}
+										</ion-card-content>
+									</ion-card>
+									<ion-item [hidden]="hidecardlist">
+										<ion-button type="button" class ="ion-text-center" (click)="checkIfCardByCountryExist() ? openModal() : alertHelper('Invalid Sale Details','No Beneficiary for Country : '+ todo.country, cardno, 0)" size="large"  expand="full"  color="light" style="display: flex; min-height: 135px; width: 450px;">
+											<ion-grid *ngIf="todisplay.selectedbenearray.length==0">
+												<ion-row>
+														<ion-col size="12" class ="ion-text-center" >
+															{{ checkIfCardByCountryExist() ? 'SELECT BENEFICIARY' : 'NO BENEFICIARY'}}
+														</ion-col>
+												</ion-row>
+											</ion-grid>
+                      
+											<ion-grid *ngIf="todisplay.selectedbenearray.length!=0">
+												<ion-row>
+													<ion-col *ngIf="todisplay.selectedbenearray[1]!=''" style="justify-self: center; align-self: center; ">
+														<ion-img *ngIf="todisplay.selectedbenearray[1]!=''" [src]="getUriEncodeUrl('bankicon',todisplay.selectedbenearray[1].toLowerCase())" ></ion-img>
+													</ion-col>
+
+													<ion-col  style="flex:2">
+                            <h6 *ngIf="todisplay.selectedbenearray[5]">Sender: {{todisplay.selectedbenearray[5]}}</h6>
+														<h6 style='font-weight:bold'>Bene: {{todisplay.selectedbenearray[3]}}</h6>
+														<h6>MM ID: {{todisplay.selectedbenearray[0]}}</h6>
+                            <h6 *ngIf="todisplay.selectedbenearray[7]">IFSC: {{todisplay.selectedbenearray[7]}}</h6>
+                            <h6><span *ngIf="todisplay.selectedbenearray[2]!=''">Bank Acc No.: {{todisplay.selectedbenearray[2]}}</span></h6>
+                            <h6><span *ngIf="todisplay.selectedbenearray[8]!=''">Bank: {{todisplay.selectedbenearray[8]}}</span></h6>
+														<h6>Country: {{todisplay.selectedbenearray[4]}}</h6>
+
+														<!-- <h3><span *ngIf="todisplay.selectedbenearray[1]!=''">{{todisplay.selectedbenearray[1]+ ' '}}</span><span *ngIf="todisplay.selectedbenearray[2]!=''">{{todisplay.selectedbenearray[2]}}</span></h3>
+														<h3>{{todisplay.selectedbenearray[4]}}</h3> -->
+													</ion-col>
+												</ion-row>
+											</ion-grid>
+	<!-- 									<ion-grid *ngIf="todisplay.selectedbenearray.length!=0"> -->
+	<!-- 										<ion-row> -->
+	<!-- 											<ion-col *ngIf="todisplay.selectedbenearray[1]!=''" style="justify-self: center;align-self: center;"> -->
+	<!-- 												<img *ngIf="todisplay.selectedbenearray[1]!=''" [src]="'https://mmwalletapp.ezeemoney.biz:4322/bankicon/' + todisplay.selectedbenearray[1].toLowerCase() + '.png'"> -->
+	<!-- 											</ion-col> -->
+	<!-- 											<ion-col col-auto> -->
+	<!-- 												<h2>Bene Name: {{todisplay.selectedbenearray[3]}}<br /> -->
+	<!-- 												Card No. : {{todisplay.selectedbenearray[0]}}<br /> -->
+	<!-- 												<h2 *ngIf="todisplay.selectedbenearray[1]!=''">Bank Acc: {{todisplay.selectedbenearray[1]+ ' ' + todisplay.selectedbenearray[2]}}<br /></h2> -->
+	<!-- 												Country : {{todisplay.selectedbenearray[4]}}</h2> -->
+	<!-- 											</ion-col> -->
+	<!-- 										</ion-row> -->
+	<!-- 									</ion-grid> -->
+										</ion-button>
+									</ion-item>
+	<!-- 							  <ion-item [hidden]="hidecardlist"> -->
+	<!-- 							    <ion-label fixed>Card No</ion-label> -->
+	<!-- 							    <ion-select #cardno required style="max-width:100% !important; padding-left:0px;" placeholder="Select Card" required [(ngModel)]="todo.cardno" name="cardno"> -->
+	<!-- 								  <ion-option *ngFor="let cards of cardarray | myfilter:todo.country" [value]="cards[0]">{{cards[0]}}</ion-option> -->
+	<!-- 								</ion-select> -->
+	<!-- 							  </ion-item> -->
+
+	<!-- 							  <ion-item> -->
+	<!-- 							    <ion-label fixed>Card No</ion-label> -->
+	<!-- 							    <ion-input #cardno required [(ngModel)]="todo.cardno" type="number" name="cardno" required myTabindex="5"></ion-input> -->
+	<!-- 							    <button type="button" (click)="click()" color="danger" ion-button item-right>Scan</button> -->
+	<!-- 							  </ion-item> -->
+
+									<ion-item>
+										<ion-label position="fixed">Purpose</ion-label>
+				<!-- 				    <ion-input [(ngModel)]="todo.purpose" type="text" name="purpose"  myTabindex="7"></ion-input> -->
+									<ion-select #purpose required style="max-width:100% !important; padding-left:0px; word-break: normal;" placeholder="Select" required [(ngModel)]="todo.purpose" name="purpose">
+										<ion-select-option *ngFor="let purposes of purposearray" [value]="purposes[0]">{{purposes[1]}}</ion-select-option>
+									</ion-select>
+									</ion-item>
+
+									<ion-item [hidden]="todo.purpose != '10'" text-wrap>
+										<ion-label position="fixed">Other Purpose</ion-label>
+										<ion-input #otherpurpose required [(ngModel)]="todo.otherpurpose" type="text" name="otherpurpose" myTabindex="7"></ion-input>
+									</ion-item>
+
+		<!-- 						  <ion-list *ngIf="todo.purpose==9"> -->
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label >Wakil Hantar Details</ion-label>
+										</ion-item>
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Name</ion-label>
+											<ion-input #sname required [(ngModel)]="todo.sname" type="text" name="sname" myTabindex="8"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Relationship</ion-label>
+											<ion-input #srelat required [(ngModel)]="todo.srelat" type="text" name="srelat" myTabindex="9"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Country</ion-label>
+											<ion-input #scountry required [(ngModel)]="todo.scountry" type="text" name="scountry" myTabindex="10"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Passport</ion-label>
+											<ion-input #spassport required [(ngModel)]="todo.spassport" type="text" name="spassport" myTabindex="11"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Date of Birth</ion-label>
+											<ion-input #sdob required [(ngModel)]="todo.sdob" placeholder="YYYY-MM-DD" type="text" name="sdob" myTabindex="12"></ion-input>
+											<button type="button" color="danger" (click)="selectdate()" ion-button item-right>Select</button>
+				<!-- 					    <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="todo.sdob" name="sdob" myTabindex="12"></ion-datetime> -->
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Address</ion-label>
+											<ion-input #saddress required [(ngModel)]="todo.saddress" type="text" name="saddress" myTabindex="13"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Purpose</ion-label>
+											<ion-input #spurpose required [(ngModel)]="todo.spurpose" type="text" name="spurpose" myTabindex="14"></ion-input>
+										</ion-item>
+
+										<ion-item *ngIf="todo.purpose==9">
+											<ion-label  position="fixed">Document</ion-label>
+											<ion-select #sdocument required style="max-width:100% !important; padding-left:0px;" placeholder="Select" [(ngModel)]="todo.sdocument" name="sdocument" myTabindex="15">
+											<ion-select-option value="0">Cannot Provide</ion-select-option>
+											<ion-select-option value="1">Can Provide</ion-select-option>
+										</ion-select>
+										</ion-item>
+
+                     <!-- arrange the amount and ongkos to the last part of the input list (so user input all the data to request to precheck api)-->
+                    <div [ngSwitch]="pinType">
+                      <div #list *ngSwitchCase="'NotFlexible'">
+                        <ion-item>
+                          <ion-label position="fixed">Amount</ion-label>
+                          <ion-select #pindeno required style="max-width:100% !important; padding-left:0px; " placeholder="Select" [(ngModel)]="todo.pindeno" name="pindeno" (ngModelChange)="onIndonPinChange($event)">
+                            <ion-select-option style ="white-space: normal !important;" *ngFor="let pins of pinarray" [value]="pins[0]">{{pins[1]}}, Service Charge {{pins[2]}}</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                      </div>
+                      <div #list *ngSwitchCase="'Flexible'">
+                        <ion-item>
+                          <ion-label  position="fixed">Amount</ion-label>
+                            <ion-input #amount required [disabled]="isAmountDisabled" [(ngModel)]="todo.amount" type="number" required name="amount" myTabindex="4"></ion-input>
+                            <ion-button type="button" (click)="resetAmount()" color="danger" slot="end">Reset</ion-button>
+                            <ion-select [(ngModel)]="todo.currency" name="currency" (ngModelChange)="onChangeCurrency($event)">
+                            <ion-select-option [value]="1" >RM</ion-select-option>
+                            <ion-select-option *ngFor="let curr of currencyarray  | myfilter:todo.country let idx = index"  [value]="curr[1]">{{curr[2]}}</ion-select-option>
+                          </ion-select>
+                          </ion-item>
+                          <ion-item [hidden]="passfloat()">
+                          <ion-label  position="fixed">RM</ion-label>
+                            <ion-input placeholder="Amount Confirmation"  [disabled]="isAmountDisabled" #camount [(ngModel)]="todo.camount" type="number" required name="camount"></ion-input>
+                          </ion-item>
+  
+                          <ion-item *ngIf="todo.country=='Indonesia'">
+                            <ion-label  position="fixed" style="font-size: 12px;">Charge(Ongkos)</ion-label>
+                            <ion-input placeholder="" #rcharge [(ngModel)]="todo.merchant_charge" type="number" required name="rcharge"></ion-input>
+                          </ion-item>
+
+                          <ion-item *ngIf="todo.country!='Indonesia'">
+                            <ion-label  position="fixed" style="font-size: 12px;">Charge(Ongkos)</ion-label>
+                            <ion-input placeholder="" [disabled]="isOngkosDisabled" #otherCountryCharge [(ngModel)]="todo.merchant_charge" type="number" required name="otherCountryCharge"></ion-input>
+                            <ion-button type="button" (click)="saleInputChecking(presaleform, 1)" color="danger"  item-right>Semak Ongkos</ion-button>
+                          </ion-item>
+                      </div>
+                    </div>
+		<!-- 						  </ion-list> -->
+		<!-- 						</ion-list> -->
+								<ion-grid>
+								<ion-row class="ion-text-center">
+									<ion-col size ="6">
+                   <!-- <div style="margin-left: auto; margin-right: auto;display: block;"> -->
+                   <ion-button type="button" (click)="saleReset(presaleform)" color="danger" fill="outline" shape="round" size="large">A.Reset </ion-button>
+                  <!-- </div> -->
+                  </ion-col>
+									<ion-col size="6">
+                    <!-- <div style="margin-left: auto; margin-right: auto;display: block;"> -->
+                     <ion-button type="submit" color="danger" shape="round" size="large">B.Next</ion-button> 
+                    <!-- </div> -->
+                  </ion-col>
+								</ion-row>
+								</ion-grid>
+							</form>
+						</ion-list>
+					</div>
+					<div *ngSwitchCase="'AfterSale'">
+						<ion-grid>
+							<ion-row class="header">
+								<ion-col>
+									<h2 style="font-weight: bold; text-align: center;">Sale Confirmation</h2>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Beneficiary Name
+								</ion-col>
+								<ion-col>
+									{{todisplay.benename}}
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Sending Amount in {{todisplay.currencyinquestion}}
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.sendamount)}}
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Exchange Rate RM to {{todisplay.currencyinquestion}}
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.exrate)}}
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									MPin Amount in RM
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.pinamount)}}
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Amount to collect
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.keyinamount)}}
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Service Charge in RM
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.servicecharge)}}
+								</ion-col>
+							</ion-row>
+							<!-- <ion-row>
+								<ion-col style="text-align: right;">
+									GST @{{todisplay.gst_percent}} included in total
+								</ion-col>
+								<ion-col>
+									{{numberWithCommas(todisplay.gst)}}
+								</ion-col>
+							</ion-row> -->
+							<ion-row>
+								<ion-col style="text-align: right;">
+									Total Amount to collect in RM
+								</ion-col>
+								<ion-col>
+									<div style="display:inline;border: thin solid black;padding: 1px 5px 1px 5px;">
+										{{numberWithCommas(todisplay.totalamount)}}
+									</div>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<form #aftersaleform="ngForm" *ngIf="active" (ngSubmit)="saleProcess(aftersaleform)">
+							<ion-list>
+								<ion-item>
+										<ion-label position="fixed" color="danger">PIN</ion-label>
+										<ion-input [(ngModel)]="todo.tac" type="number" style="-webkit-text-security:disc;" name="tac" mode="wp"></ion-input>
+											<!--<button type="button" (click)="requestTac()" ion-button item-right color="danger">C.Pin</button>-->
+								</ion-item>
+								<ion-card [hidden]="hidemsgattnsender2">
+										<ion-card-content style="font-weight: bold;">
+												{{todisplay.msgattnsender2}}
+										</ion-card-content>
+									</ion-card>
+							</ion-list>
+              <!--start Tap2Pay-->
+              <!-- <ion-item>
+                <ion-checkbox color="danger" [(ngModel)]="tap2pay.isPayByMobileMoney" name="paybymm"></ion-checkbox>
+                <ion-label>Pay by Mobile Money</ion-label>
+              </ion-item>
+              <div *ngIf="tap2pay.isPayByMobileMoney" style="border: rgb(224, 224, 224) 1px solid;margin:10px;">
+                <ion-label text-wrap style="margin: 10px 16px 10px 16px;text-align: center;font-size:14px;">
+                  Please key in approval code from eRemit App or click Generate code if you do not have approval code.
+                </ion-label>
+                <ion-item>
+                  <ion-checkbox color="danger" [(ngModel)]="isGenerateOTP" name="isGenOTP"></ion-checkbox>
+                  <ion-label style="font-size: 14px;">Generate code</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label fixed text-wrap="" style="font-size: 12px; margin-right:3px;">Approval Code</ion-label>
+                  <ion-input [(ngModel)]="tap2pay.tac" type="number" #t2pTac style="margin-right:3px;" name="tac" mode="wp"></ion-input>
+                </ion-item>
+                <ion-item *ngIf='isGenerateOTP'>
+                    <ion-label fixed text-wrap="" style="font-size: 12px; margin-right:3px;">Tap2Pay Card</ion-label>
+                    <ion-input [(ngModel)]="tap2pay.cardno" type="number" style="margin-right:3px;" placeholder="Card no." name="cardno" mode="wp"></ion-input>
+                    <button type="button" (click)="getOTP()" ion-button item-right color="danger">Get Code</button>
+                </ion-item>
+                <ion-label *ngIf="isDisplayOTPMsg" text-wrap style="margin: 10px 16px 10px 16px;color: red;text-align: center;">{{OTPReqMsg}} <br/>{{OTPTimer}}</ion-label>
+	            </div> -->
+              <!--end Tap2Pay-->
+
+							<ion-grid>
+								<ion-row>
+									<ion-col size="6">
+										<ion-button type="button" (click)="saleBack()" color="danger" fill="outline" shape="round"  size="large">D.Back</ion-button>
+									</ion-col>
+									<ion-col size="6">
+										<ion-button type="submit" color="danger" shape="round" size="large">E.Confirm</ion-button>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</form>
+					</div>
+				</div>
+			</div>
+	<!-- 		<div *ngSwitchCase="'Void'"> -->
+	<!-- 			<form #voidform="ngForm" (ngSubmit)="subvoidForm(voidform)"> -->
+	<!-- 				<ion-list> -->
+	<!-- 				  <ion-item> -->
+	<!-- 				    <ion-label fixed>Pin Txn ID</ion-label> -->
+	<!-- 				    <ion-input [(ngModel)]="tovoid.pintxnid" type="text" name="pintxnid" myTabindex="1"></ion-input> -->
+	<!-- 				  </ion-item> -->
+	<!-- 				</ion-list>				 -->
+	<!-- 				<ion-grid> -->
+	<!-- 				 <ion-row> -->
+	<!-- 				  <ion-col width-50><button style="width:100%" ion-button type="button" (click)="voidform.reset()" color="secondary" large>Clear</button></ion-col> -->
+	<!-- 				  <ion-col width-50><button style="width:100%" ion-button type="submit" color="primary" large>Process</button></ion-col> -->
+	<!-- 				 </ion-row> -->
+	<!-- 				 <ion-row> -->
+	<!-- 				 	<ion-col> -->
+	<!-- 				 		<button style="width:100%" ion-button type="button" (click)="checkForm()" color="danger" large>Check Pin Status</button> -->
+	<!-- 				 	</ion-col> -->
+	<!-- 				 </ion-row> -->
+	<!-- 				</ion-grid> -->
+	<!-- 			</form> -->
+	<!-- 		</div> -->
+		</div>
+
+		<div *ngSwitchCase="'DoTopUp'">
+			<form #prefpxform="ngForm" *ngIf="active" (ngSubmit)="doPreFpxFetch(prefpxform)">
+				<ion-item>
+					<ion-label position="fixed">Amount</ion-label>
+					<ion-input #fpxamount required [(ngModel)]="tofpx.fpxamount" type="number" name="fpxamount" myTabindex="1"></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label  position="fixed">Email</ion-label>
+					<ion-input #fpxbuyer_email required [(ngModel)]="tofpx.fpxbuyer_email" placeholder="Optional(leave empty)" type="email" name="fpxbuyer_email" myTabindex="2"></ion-input>
+				</ion-item>
+
+				<ion-grid>
+					<ion-row>
+						<ion-col size="6" class="ion-text-center">
+              <div style="margin-left: auto; margin-right: auto;display: block;">
+               <ion-button type="button" (click)="fpxReset()" color="danger" fill="outline" shape="round" size="large">Reset</ion-button> </div></ion-col>
+						<ion-col size="6" class="ion-text-center">
+              <ion-button style="margin-left: auto; margin-right: auto;display: block;" type="submit" color="danger" shape="round" size="large">Submit</ion-button></ion-col>
+					</ion-row>
+				</ion-grid>
+			</form>
+
+		</div>
+
+		<div *ngSwitchCase="'TopUpLog'">
+				<!--<ion-refresher (ionRefresh)="doRefreshTopUpLog($event)" style="z-index:999 !important;">-->
+					<!--<ion-refresher-content-->
+					<!--pullingIcon="arrow-dropdown"-->
+					<!--pullingText="Pull to refresh"-->
+					<!--refreshingSpinner="circles"-->
+					<!--refreshingText="Refreshing...">-->
+				  <!--</ion-refresher-content>-->
+				<!--</ion-refresher>-->
+
+
+				<!-- <ion-list>
+				  <ion-item>Balance : RM {{balance}}</ion-item>
+					<button ion-item *ngFor="let rates of ratearray" text-wrap>
+						<h2>{{rates[2]}}</h2>
+						<p style="display: flex;align-items:center"><img-loader height="32px" width="32px" [src]="getUriEncodeUrl('country',rates[0])"></img-loader>
+						{{rates[0]}}, <img-loader height="32px" width="64px" [src]="getUriEncodeUrl('provider',rates[1])"></img-loader> {{rates[1]}}</p>
+						<button ion-button item-right color="danger">Select</button>
+					</button>
+				</ion-list> -->
+
+			<h4 *ngIf="!isEmpty(topuplog)">
+				No TopUp Log Found
+			</h4>
+				<button ion-item *ngFor="let log of topuplog">
+				<h2>Request ID : {{log.request_id}}<br />FPX ID : {{log.fpx_trans_id}}</h2>
+				<h2>Amount : {{log.amount}}<br />Top Up Status : {{log.top_up_status == '1'? 'Success': log.top_up_status == '0'? 'Pending Top Up': 'Fail' }}<br />DateTime : {{log.dtCreated}}</h2>
+				<!-- <button type="button" style="margin:0px" (click)="viewreceipt(log)" ion-button item-right color="danger">View</button> -->
+			</button>
+			<!--
+				<ion-list *ngIf="refreshlist" [hidden]="!hidelist" >
+					<button ion-item *ngFor="let log of txnlog | myfilter ">
+						<h2>Pin Txn ID : {{log.trans_id}}<br />Pin Number : {{log.pin_number}}</h2>
+						<h2>CardNo : {{log.card_no}}<br />Hp Number : {{log.customer_hp}}<br />DateTime : {{log.timestamp}}</h2>
+						<button type="button" style="margin:0px" (click)="viewreceipt(log)" ion-button item-right color="danger">View</button>
+					</button>
+				</ion-list> -->
+		</div>
+
+		<div *ngSwitchCase="'DoBankTopUp'">
+      <ion-refresher slot="fixed" (ionRefresh)="doRefreshTopUpLog($event)" style="z-index:999 !important;" *ngIf="action == 'semakfpx'">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <div *ngIf="action == ''">
+        <ion-item (click)="navigateTopUp('bank')">
+          <ion-label text-wrap=""  >Bank Topup</ion-label>
+        </ion-item>
+        <ion-item (click)="navigateTopUp('fpx')">
+          <ion-label text-wrap="" >FPX Topup</ion-label>
+        </ion-item>
+        <ion-item (click)="navigateTopUp('semak')">
+          <ion-label text-wrap="">Semak Bank Topup</ion-label>
+        </ion-item>
+        <ion-item (click)="navigateTopUp('semakfpx')">
+          <ion-label text-wrap="">Semak FPX Topup</ion-label>
+        </ion-item>
+      </div>
+      <div *ngIf="action == 'bank'">
+        <div *ngIf="!selectedBank.bank">
+          <ion-item *ngFor="let item of topupBankList" (click)="selectBank(item)">
+            <ion-avatar slot="start">
+              <img [src]=item.image>
+            </ion-avatar>
+            <ion-label text-wrap="">Bank: {{item.bank}}
+              <br><span text-wrap="" style="color: gray; font-size: 14px;">Account No. {{item.accountNo}}</span>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div *ngIf="selectedBank && selectedBank.bank">
+          <h5 class="ion-text-center">{{selectedBank.bank}} {{selectedBank.accountNo}}</h5>
+          <ion-item>
+            <ion-label position="fixed" style="font-size:12.5px; word-break: normal;">Amount (RM)</ion-label>
+            <ion-input #tuamount required [(ngModel)]="topup.amount" type="number" name="tuamount" myTabindex="1"></ion-input>
+          </ion-item>
+        </div>
+
+        <div *ngIf="selectedBank && selectedBank.bank && selectedBank.bank != 'RHB'">
+          <ion-item>
+            <ion-label  position="fixed" style="font-size:12.5px">Location</ion-label>
+            <ion-input #tutempat required [(ngModel)]="topup.tempat" type="text" name="tutempat" myTabindex="1"></ion-input>
+          </ion-item>
+
+          <ion-item>
+
+            <ion-label position="fixed" style="font-size:12.5px">Date</ion-label>
+
+            <ion-input value="{{topup.tudate | date: 'dd-MM-yyyy' }}" id="dtt" ion-text-end></ion-input>
+  
+            <ion-popover trigger="dtt" size="cover">
+              <ng-template>
+                <ion-datetime presentation="date" max={{maxDate}} displayFormat="DD-MM-YYYY" show-default-buttons="true"  placeholder="DD-MM-YYYY" [(ngModel)]="topup.tudate"></ion-datetime>
+              </ng-template>
+            </ion-popover>
+             <!-- {{topup.tudate}} -->
+            <!-- <ion-label  position="fixed">Date</ion-label>
+            <ion-datetime pickerFormat="YYYY MMM DD" max={{maxDate}} [(ngModel)]="topup.tudate"  placeholder="DD-MM-YYYY" displayFormat="DD-MM-YYYY" ></ion-datetime> -->
+          </ion-item>
+
+          <ion-item>
+
+            <ion-label position="fixed" style="font-size:12.5px" >Time </ion-label>
+            <ion-input value="{{topup.tutime | date: 'H:mm'}}" id="tuttime" ion-text-end></ion-input>
+            <ion-popover trigger="tuttime" size="cover">
+              <ng-template>
+                <ion-datetime displayFormat="H:mm" presentation="time" hourCycle="h23" show-default-buttons="true" text-wrap [(ngModel)]="topup.tutime" placeholder="H:mm"></ion-datetime>
+              </ng-template>
+            </ion-popover>
+                  
+          </ion-item>
+             <!-- {{topup.tutime}} -->
+        </div>
+        <div *ngIf="selectedBank && selectedBank.bank == 'RHB'">
+          <ion-item>
+            <ion-label position="fixed" style="font-size:12.5px">No Seq</ion-label>
+            <ion-input #tuseq required [(ngModel)]="topup.seqNo" type="text" name="tuseq" myTabindex="1"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-item *ngIf="selectedBank && selectedBank.bank">
+          <h5 style ="font-size:12.5px;">Attachment: <a (click)="selectUploadSource()">-- Select--</a></h5><br>
+        </ion-item>
+
+        <ion-item>
+          <ion-img *ngIf="reportprob.attachement != ''" src="{{reportprob.attachement ? reportprob.attachement : ''}}" style="width:400px; margin:2px;"> </ion-img>
+        </ion-item>
+
+        <!-- <ion-item *ngIf="selectedBank && selectedBank.bank">
+          <h5>Take Photo: <a (click)="testCamera()">-- Select --</a></h5><br>
+        </ion-item> -->
+
+        <ion-grid *ngIf="selectedBank && selectedBank.bank">
+          <ion-row>
+            <ion-col size="6" class="ion-text-center"><ion-button type="submit" color="danger" shape="round" size="large" (click)="resetBankOption()">A.Banks</ion-button></ion-col>
+            <ion-col size="6" class="ion-text-center"><ion-button type="submit" color="danger" shape="round" size="large" (click)="submitBankTopUp(selectedBank)">B.Submit</ion-button></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div *ngIf="action == 'fpx'">
+        <form #prefpxform="ngForm" *ngIf="active" (ngSubmit)="doPreFpxFetch(prefpxform)">
+          <ion-item>
+            <ion-label position="fixed" style="font-size:12.5px">Amount</ion-label>
+            <ion-input #fpxamount required [(ngModel)]="tofpx.fpxamount" type="number" name="fpxamount" myTabindex="1"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="fixed" style="font-size:12.5px">Email</ion-label>
+            <ion-input #fpxbuyer_email required [(ngModel)]="tofpx.fpxbuyer_email" placeholder="Optional(leave empty)" type="email" name="fpxbuyer_email" myTabindex="2"></ion-input>
+          </ion-item>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" class="ion-text-center">
+                <ion-button type="button" (click)="fpxReset()" color="danger" fill="outline" shape="round" size="large">
+                  Reset </ion-button>
+              </ion-col>
+              <ion-col size="6" class="ion-text-center">
+                <ion-button type="submit" color="danger" shape="round" size="large">Submit</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+
+      <div *ngIf="action == 'semak'">
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">From Date</ion-label>
+
+          <ion-input value="{{ semakTopUp.fromDate | date: 'dd MMM yyyy' }}" id="start" ion-text-end></ion-input>
+
+          <ion-popover trigger="start" size="cover">
+            <ng-template>
+              <ion-datetime presentation="date" displayFormat="DD MMM YYYY" show-default-buttons="true" [(ngModel)]="semakTopUp.fromDate"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+
+
+          <!-- <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="semakTopUp.fromDate" placeholder="Select From Date"></ion-datetime> -->
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">To Date</ion-label>
+
+          <ion-input value="{{semakTopUp.toDate | date: 'dd MMM yyyy' }}" id="end" ion-text-end></ion-input>
+
+          <ion-popover trigger="end" size="cover">
+            <ng-template>
+              <ion-datetime presentation="date" displayFormat="DD MMM YYYY" show-default-buttons="true" [(ngModel)]="semakTopUp.toDate"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+
+          <!-- <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="semakTopUp.toDate" placeholder="Select To Date"></ion-datetime> -->
+        </ion-item>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12"  class="ion-text-center">
+              <div style="margin-left: auto; margin-right: auto;display: block;">
+              <ion-button type="submit" color="danger" shape="round" size="large" (click)="checkBankTopUpLog()">SEARCH</ion-button> </div>
+            </ion-col>
+            <!--<ion-col width-50><button style="font-size: 14px;margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="submitBankTopUp(selectedBank)">TODAY'S RECORD</button></ion-col>-->
+          </ion-row>
+        </ion-grid>
+
+        <h5 padding class="ion-text-center" *ngIf="semakTopUpLog == null">
+          No Txn Log Found
+        </h5>
+        <ion-list>
+          <ion-item *ngFor="let log of semakTopUpLog">
+            <ion-label>
+              <h3>Txn ID : {{log.transaction_id}}</h3>
+              <h3>TopUp Amount : RM {{log.amount}}</h3>
+              <h3>Bank Code : {{log.bank_code}}</h3>
+              <h3>Remark : {{log.remark}}</h3>
+              <h3>DateTime : {{log.dtCreated}}</h3>
+            </ion-label>
+         
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div *ngIf="action == 'semakfpx'">
+        <h4 style="text-align: center" *ngIf="!isEmpty(topuplog)">
+          No TopUp Log Found
+        </h4>
+        <ion-item *ngFor="let log of topuplog">
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" ion-text-wrap>
+                <ion-label>Request ID : {{log.request_id}} </ion-label>
+              </ion-col>
+              <ion-col size="12" ion-text-wrap>
+                <ion-label> FPX ID : {{log.fpx_trans_id}} </ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" ion-text-wrap>
+                <ion-label> Amount : {{log.amount}} </ion-label>
+              </ion-col>
+              <ion-col size="12" ion-text-wrap>
+                <ion-label> Top Up Status : {{log.top_up_status == '1'? 'Success': log.top_up_status == '0'? 'Pending Top Up':
+                  'Fail' }} </ion-label>
+              </ion-col>
+              <ion-col size="12" ion-text-wrap>
+                <ion-label> DateTime : {{log.dtCreated}} </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          <!-- <ion-label>
+            <h3>Request ID : {{log.request_id}}</h3>
+            <h3>FPX ID : {{log.fpx_trans_id}}</h3>
+            <h3>Amount : {{log.amount}}</h3>
+            <h3>Top Up Status : {{log.top_up_status == '1'? 'Success': log.top_up_status == '0'? 'Pending Top Up': 'Fail' }}</h3>
+            <h3>DateTime : {{log.dtCreated}}</h3>
+          </ion-label> -->
+       
+          <!-- <button type="button" style="margin:0px" (click)="viewreceipt(log)" ion-button item-right color="danger">View</button> -->
+        </ion-item>
+      </div>
+		</div>
+
+		<div *ngSwitchCase="'DoReportProblem'">
+      <div class="ion-text-center" style="font-weight: bold; padding:5px">
+        <span style="font-size:13px">We will contact you via email<br/> Please provide a valid email address</span>
+      </div>
+			<ion-item>
+				<ion-label position="fixed" style="font-size:12.5px" >Email</ion-label>
+				<ion-input #remail required [(ngModel)]="reportprob.email" type="text" name="remail" myTabindex="8"></ion-input>
+			</ion-item>
+
+      <ion-item>
+        <ion-label position="fixed" style="font-size:12.5px">Phone</ion-label>
+        <ion-input #rphone required [(ngModel)]="reportprob.phone" type="text" inputmode="numeric" name="rphone" myTabindex="8"></ion-input>
+      </ion-item>
+
+			<ion-item>
+				<ion-label position="fixed" style="font-size:12.5px">Problem</ion-label>
+        <ion-select #rcategory required style="max-width:100% !important; padding-left:0px; white-space:normal;" placeholder="Select" required [(ngModel)]="reportprob.category" name="category">
+          <ion-select-option  class="problems" *ngFor="let cat of categoryarray" [value]="cat['value']">{{cat['name']}}</ion-select-option>
+        </ion-select>
+			</ion-item>
+
+      <ion-item *ngIf="reportprob.category == 2">
+        <ion-label position="fixed" style="font-size:12.5px">Bank</ion-label>
+        <ion-select #rbank required style="max-width:100% !important; padding-left:0px; white-space:normal;" placeholder="Select"   required [(ngModel)]="reportprob.bank" name="bank">
+          <ion-select-option    *ngFor="let cat of reportBankarray" [value]="cat['name']">{{cat['name']}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed" style="font-size:12.5px">Trxn No. </ion-label>
+        <ion-input #rtrx required [(ngModel)]="reportprob.trans_id" type="text" name="strax" myTabindex="8"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed" style="font-size:12.5px">Subject</ion-label>
+        <ion-input #rsubject required [(ngModel)]="reportprob.subject" type="text" name="ssubject" myTabindex="8"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed" style="font-size:12.5px">Message</ion-label>
+        <ion-textarea #rmsg required [(ngModel)]="reportprob.message" type="text" name="smsg" myTabindex="8" rows="3"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <span style="font-size:12.5px; ">Attachment (optional): <a (click)="selectUploadSource()">-- Select --</a></span><br>
+      </ion-item>
+       
+      <ion-item>
+        <ion-img *ngIf="reportprob.attachement != ''" src="{{reportprob.attachement ? reportprob.attachement : ''}}" style="width:400px; margin:2px"> </ion-img>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" class="ion-text-center">
+            <ion-button type="submit" color="danger" shape="round" size="large" (click)="resetReportProblem()">A.Reset
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" class="ion-text-center">
+            <ion-button type="submit" color="danger" shape="round" size="large" (click)="reportProblem()">B.Submit</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+		</div>
+
+    <div *ngSwitchCase="'CekBaki'">
+      <div style="font-weight: bold; text-align: center; padding: 10px;">
+        <h4>RM {{balance ? balance :' Balance Loading ... '}} </h4>
+        <span style="font-style: italic; font-size: 12px;">as at {{dateNow}}</span><br>
+      </div>
+
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button type="submit" color="danger" shape="round" size="large" (click)="getBalance(true)">Cek Baki</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngSwitchCase="'CekPin'">
+      <div>
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 12.5px;">From Date</ion-label>
+          <ion-input value="{{ fromDt | date: 'dd MMM yyyy' }}" id="from" class="ion-text-start"></ion-input>
+
+          <ion-popover trigger="from" size="cover">
+            <ng-template>
+              <ion-datetime presentation="date" [(ngModel)]="fromDt" show-default-buttons="true" placeholder="Select From Date (optional)"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+
+          <!-- <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="fromDt" placeholder="Select From Date (optional)"></ion-datetime> -->
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 12.5px;">To Date</ion-label>
+
+          <ion-input value="{{ toDt | date: 'dd MMM yyyy' }}" id="to" class="ion-text-start"></ion-input>
+
+          <ion-popover trigger="to" size="cover">
+            <ng-template>
+              <ion-datetime presentation="date" [(ngModel)]="toDt" show-default-buttons="true" placeholder="Select to Date (optional)"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+
+          <!-- <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="toDt" placeholder="Select To Date (optional)"></ion-datetime> -->
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="fixed" style="font-size:12.5px;">HP Number</ion-label>
+          <ion-input placeholder="Optional" #hp type="text" inputmode="numeric" [(ngModel)]="tosearch.filtervalue" required name="hpNo"></ion-input>
+        </ion-item>
+        <!--<div style="background-color: white;">-->
+          <!--<div style="width: 90%; ">-->
+            <!--<ion-item>-->
+              <!--<ion-input style="padding-left: 10px; width: 100%;" type="number" contenteditable="true" placeholder="HP Number" [(ngModel)]="searchKey" clearInput></ion-input>-->
+            <!--</ion-item>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="pointer date-div">-->
+          <!--<ion-item>-->
+            <!--<ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="fromDt" placeholder="Select From"></ion-datetime>-->
+          <!--</ion-item>-->
+        <!--</div>-->
+        <!--<div class="pointer2 date-div2">-->
+          <!--<ion-item>-->
+            <!--<ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="toDt" placeholder="Select To"></ion-datetime>-->
+          <!--</ion-item>-->
+        <!--</div>-->
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center"> 
+      
+            <ion-button type="submit" color="danger" shape="round" size="large" (click)="openLog(2)">SEARCH </ion-button></ion-col>
+          <!--<ion-col width-50><button style="font-size: 14px;margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="submitBankTopUp(selectedBank)">TODAY'S RECORD</button></ion-col>-->
+        </ion-row>
+      </ion-grid>
+
+      <!--<div padding style="padding-bottom:0px !important;">-->
+        <!--<button ion-item color="danger" (click)="openLog(1)">-->
+          <!--<h1>A..  Show All</h1>-->
+          <!--<button ion-button item-right color="light" outline>Select</button>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<form style="margin-top:30px !important;" #dummyform="ngForm" novalidate>-->
+        <!--<ion-item>-->
+          <!--<ion-label fixed>Search</ion-label>-->
+          <!--<ion-input #filtervalue required [(ngModel)]="tosearch.filtervalue" type="text" name="filtervalue"></ion-input>-->
+        <!--</ion-item>-->
+      <!--</form>-->
+      <!--<div padding style="padding-bottom:0px !important;">-->
+        <!--<button ion-item color="danger" (click)="openLog(2)">-->
+          <!--<h1>B..  Search By HP</h1>-->
+          <!--<button ion-button item-right color="light" outline>Select</button>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<div padding style="padding-bottom:0px !important;">-->
+
+        <!--<button ion-item color="danger" (click)="openLog(3)">-->
+          <!--<h1>C..  Search By Card</h1>-->
+          <!--<button ion-button item-right color="light" outline>Select</button>-->
+        <!--</button>-->
+      <!--</div>-->
+      <!--<div padding style="padding-bottom:0px !important;">-->
+
+        <!--<button ion-item color="danger" (click)="openLog(4)" text-wrap>-->
+          <!--<h1>D..  Search By Txn ID</h1>-->
+          <!--<button ion-button item-right color="light" outline>Select</button>-->
+        <!--</button>-->
+
+      <!--</div>-->
+    </div>
+
+    <div *ngSwitchCase="'CekAkaun'">
+      <ion-item>
+        <ion-label position="fixed" style="font-size: 13px;">From Date</ion-label>
+
+        <ion-input value="{{ cekAkaun.fromDate | date: 'dd MMM yyyy' }}" id="cekstart" class="ion-text-start"></ion-input>
+
+        <ion-popover trigger="cekstart" size="cover">
+          <ng-template>
+            <ion-datetime presentation="date" displayFormat="DD MMM YYYY" [(ngModel)]="cekAkaun.fromDate" [showDefaultButtons]="true" placeholder="Select From Date"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+        <!-- <ion-datetime displayFormat="DD MMM YYYY"  [(ngModel)]="cekAkaun.fromDate" placeholder="Select From Date"></ion-datetime> -->
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed" style="font-size: 13px;">To Date</ion-label>
+
+        <ion-input value="{{ cekAkaun.toDate | date: 'dd MMM yyyy' }}" id="cekend" class="ion-text-start"></ion-input>
+
+        <ion-popover trigger="cekend" size="cover">
+          <ng-template>
+            <ion-datetime presentation="date" displayFormat="DD MMM YYYY" [(ngModel)]="cekAkaun.toDate"  [showDefaultButtons]="true" placeholder="Select To Date"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+        <!-- <ion-datetime displayFormat="DD MMM YYYY"  [(ngModel)]="cekAkaun.toDate" placeholder="Select To Date"></ion-datetime> -->
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <ion-button  type="submit" color="danger" shape="round" size="large" (click)="checkAkaunHistory()">SEARCH</ion-button></ion-col>
+          <!--<ion-col width-50><button style="font-size: 14px;margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="submitBankTopUp(selectedBank)">TODAY'S RECORD</button></ion-col>-->
+        </ion-row>
+      </ion-grid>
+
+      <h5 padding class="ion-text-center" *ngIf="cekAkaunLog == null">
+                   No Transaction Record Found
+      </h5>
+      <ion-item *ngFor="let log of cekAkaunLog">
+        <!--region newgrid-->
+        <!--<div class="grid-container">-->
+          <!--<div class="grid-item-left" style="word-break: break-all;"><span word-wrap style="word-break: break-all;font-weight: bold;">-->
+            <!--{{log.Trans_Description}}-->
+          <!--</span></div>-->
+          <!--<div class="grid-item-right">-->
+            <!--<p *ngIf="log.Credit != ''" style="color: green;"> + {{log.Credit}}</p>-->
+            <!--<p *ngIf="log.Debit != ''" style="color: red;">- {{log.Debit}}</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="grid-container1">-->
+          <!--<div *ngIf="log.Card_ID" class="grid-item-left">Card ID {{log.Card_ID}}</div>-->
+          <!--<div class="grid-item-left">Transaction ID {{log.Transaction_ID}}</div>-->
+          <!--<div class="grid-item-left">{{log.Trans_Datetime | date:'yyyy-MM-dd hh:mm a'}}</div>-->
+        <!--</div>-->
+        <!--<div class="grid-container" style="margin-top: 10px;">-->
+          <!--<div class="grid-item-left">Running balance</div>-->
+          <!--<div class="grid-item" style="float: right;">{{log.Running_Balance}}</div>-->
+        <!--</div>-->
+        <!--endregion newgrid-->
+          <ion-grid>
+              <ion-row>
+                    <ion-col size ="8" style="word-break:break-all;word-wrap: break-word; margin:0" >
+                      <span class="ion-text-start"  style="word-break:break-all;font-weight: bold; font-size: 14px;word-wrap: break-word;">
+                        {{log.Trans_Description}}
+                      </span>
+                        
+                    </ion-col>
+                    <ion-col size="4" style="margin: 0;">
+                      <p style="font-size:14px;" *ngIf="log.Credit != ''" style="color: green;  margin:0"> + {{log.Credit}}</p>
+                      <p style="font-size:14px;" *ngIf="log.Debit != ''" style="color: red;  margin:0">- {{log.Debit}}</p>
+                    </ion-col>
+              </ion-row>
+              <ion-row  *ngIf="log.card_ID">
+               <span style="font-size: 12px;"> Card ID {{log.Card_ID}}  </span>
+              </ion-row>
+              <ion-row>
+                <ion-col size ="12">
+                 <span style="font-size:12px;"> Transaction ID {{log.Transaction_ID}} </span>
+                </ion-col>
+                <ion-col size ="12">
+                 <span style="font-size:12px"> {{log.Trans_Datetime}} </span>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                  <ion-col size="8">
+                  <p style="font-size:14px;">  Running balance  </p>
+                  </ion-col>
+
+                  <ion-col size ="4">
+                    <p style="font-size:14px;">{{log.Running_Balance}} </p>
+                  </ion-col>
+                  
+              </ion-row>
+          </ion-grid>
+
+        <!-- <table>
+          <tr>
+            <td style="word-break:break-all; color:bisque; width: 50%;"  >
+            
+                <span class="ion-text-start" style="word-break: break-all;font-weight: bold;">
+                  {{log.Trans_Description}}
+                </span>
+             
+            </td>
+            <td style="padding-top: 15px;">
+              <p *ngIf="log.Credit != ''" style="color: green;"> + {{log.Credit}}</p>
+              <p *ngIf="log.Debit != ''" style="color: red;">- {{log.Debit}}</p>
+            </td>
+          </tr>
+          <tr *ngIf="log.Card_ID">
+            <td>Card ID {{log.Card_ID}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Transaction ID {{log.Transaction_ID}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>{{log.Trans_Datetime}}</td>
+           
+            <td></td>
+          </tr>
+        </table> -->
+        <!-- <table style="margin-top: 15px;">
+          <tr>
+            <td word-wrap style="word-break: break-all;width: 250px;">Running balance</td>
+            <td><span style="font-size: 13px;">{{log.Running_Balance}}</span></td>
+          </tr>
+        </table> -->
+
+        <!--region oldgrid-->
+        <!--<div style="float: left; margin-bottom: 10px; line-height: 18px; word-wrap: break-word; width: 100px;">-->
+          <!--Transaction ID {{log.Transaction_ID}} <br/>-->
+          <!--{{log.Trans_Datetime}} <br/>-->
+          <!--<span *ngIf="log.Card_ID">Card ID {{log.Card_ID}} <br/></span>-->
+
+          <!--<span style="width: 60%; word-wrap: break-word;">-->
+             <!--{{log.Trans_Description}}-->
+          <!--</span> <br/>-->
+          <!--&lt;!&ndash;<span *ngIf="log.Terminal != '00000000'">Terminal {{log.Terminal}} <br/></span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div style="float: right; text-align: right; width: 20%;">-->
+          <!--<p *ngIf="log.Credit != ''"> + {{log.Credit}}</p>-->
+          <!--<p *ngIf="log.Debit != ''">- {{log.Debit}}</p>-->
+        <!--</div>-->
+        <!--<div style="float: left; width: 100%;">-->
+          <!--<div style="float: left; text-align: left"><p>Running balance </p></div>-->
+          <!--<div style="float: right; text-align: right"><p>{{log.Running_Balance}}</p></div>-->
+        <!--</div>-->
+        <!--endregion odl grid-->
+      </ion-item>
+    </div>
+
+    <div *ngSwitchCase="'Kadar'">
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" style="z-index:999 !important;">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-item>
+        <ion-label position="fixed">Country</ion-label>
+        <ion-select #country required style="max-width:100% !important; padding-left:0px;"
+          (ngModelChange)="onChange($event)" [(ngModel)]="todo.country" name="country">
+          <ion-select-option *ngFor="let country of countryarray" [value]="country">{{country}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    
+      <ion-list>
+        <!-- 				  <ion-item>Balance : RM {{balance}}</ion-item> -->
+        <ion-item *ngFor="let rates of ratearray | myfilter:todo.country" text-wrap>
+          <!--(click)="selectRate(rates)"-->
+          <ion-label>
+            <h2>{{rates[2]}} </h2>
+            <p style="display: flex;align-items:center">
+              <img-loader height="32px" width="32px" [src]="getUriEncodeUrl('country',rates[0])"></img-loader>
+              {{rates[0]}}, <img-loader height="32px" width="64px" [src]="getUriEncodeUrl('provider',rates[1])">
+              </img-loader> {{rates[3]}}
+            </p>
+          </ion-label>
+    
+          <!--<button ion-button item-right color="danger">Select</button>-->
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'UpdateTxnPin'">
+      <ion-item>
+        <ion-label position="fixed" style="font-size: 13px;">Old PIN</ion-label>
+        <ion-input placeholder="Old PIN" #hp type="text" [(ngModel)]="oldpin" required name="Pin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" style="font-size: 13px;">New PIN</ion-label>
+        <ion-input placeholder="New PIN" #hp type="text" [(ngModel)]="newpin" required name="Pin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed" style="font-size: 13px;">Confirm PIN</ion-label>
+        <ion-input placeholder="Confirm your New PIN" #hp type="text" [(ngModel)]="cnewpin" required name="cpPin"></ion-input>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+              <ion-button type="submit" color="danger" shape="round" size="large" type="submit" color="danger" (click)="updatePin()">Submit</ion-button>
+          </ion-col>
+          <!-- <button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="submit"
+                  color="danger" round large (click)="updatePin()">Submit</button> -->
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'eremitPay'">
+      <div *ngIf="isPaid == false">
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">Booking ID</ion-label>
+          <ion-input #trxid type="number" [(ngModel)]="todoeremit.booking_idx"  placeholder="Booking ID" required name="bid"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">Sender HP</ion-label>
+          <ion-input #trxid type="text" [(ngModel)]="senderhp" placeholder="0129012345" inputmode="numeric" (keypress)="keyPressNumbers($event)" required name="shp"></ion-input>
+          <!--<button type="button" (click)="eremitGetBooking()" ion-button item-right color="danger">SEARCH</button>-->
+        </ion-item>
+        <ion-item>
+          <!--<button type="button" (click)="eremitGetBooking()" block ion-button color="danger">SEARCH</button>-->
+          <ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="submit" color="danger" shape="round" size="large" (click)="eremitGetBooking()">SEARCH</ion-button>
+        </ion-item>
+        <ion-list>
+          <button ion-item>
+            <ion-grid no-padding class="bookinglist" *ngIf="bookingRes && bookingRes.pymt_rm_amt">
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Total Amount :</h2>
+                </ion-col>
+                <ion-col style="border: 1px solid black;">
+                  RM {{bookingRes.pymt_rm_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Remit Amount :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  RM {{bookingRes.remit_rm_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Exchange Rate :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.remit_ex_rate}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Foreign Currency :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.remit_foreign_currency}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Foreign Amount :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.remit_foreign_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Service charge :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  RM {{bookingRes.service_change}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Beneficiary Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                   {{bookingRes.bene_name}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Customer Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.customer_name}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Customer HP :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.customer_hp}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Country :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.country}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Provider :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.provider}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Booking Expiry :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.booking_expiry}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="bookingRes && bookingRes.bank">
+                <ion-col size="5">
+                  <h2>Bank :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.bank ? bookingRes.bank : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="bookingRes && bookingRes.bank_name">
+                <ion-col size="5">
+                  <h2>Bank Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.bank_name ? bookingRes.bank_name : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="bookingRes && bookingRes.bank_acc_number != 0">
+                <ion-col size="5">
+                  <h2>Account Number :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{bookingRes.bank_acc_number ? bookingRes.bank_acc_number : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <!--<ion-row>-->
+                <!--<ion-col size="5">-->
+                  <!--<h2>Trxn Info :</h2>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-wrap="" size="6">-->
+                  <!--{{bookingRes.txnInfo ? bookingRes.txnInfo : '-'}}-->
+
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+
+            </ion-grid>
+          </button>
+        </ion-list>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <!--<ion-col width-100><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="eremitGetBooking()">SEARCH</button></ion-col>-->
+          <ion-col *ngIf="bookingRes && bookingRes.pymt_rm_amt" size="12">
+            <ion-button  type="submit" color="danger" shape="round" size="large" (click)="eremitPayBooking()">PAY BOOKING</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+      <!--region payment receipt-->
+      <div *ngIf="receiptRes.remit_ref_trans_id">
+        <h3 text-center="">Receipt</h3>
+        <ion-list>
+          <div ion-item>
+            <ion-grid no-padding class="bookinglist" *ngIf="receiptRes && receiptRes.remit_ref_trans_id">
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Merchant :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.merchant_name}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Merchant ID :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{tomain.merchantcode}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Payment DateTime :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.booking_paidtime}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Transaction ID :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.remit_ref_trans_id}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="receiptRes && receiptRes.pin_number != 0">
+                <ion-col size="5">
+                  <h2>Pin Number :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.pin_number}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Amount Collected :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  RM {{receiptRes.pymt_rm_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Remit Amount :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  RM {{receiptRes.remit_rm_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Exchange Rate :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.remit_ex_rate}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Foreign Currency :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.remit_foreign_currency}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Foreign Amount :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.remit_foreign_amt}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Service charge :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  RM {{receiptRes.service_change}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Beneficiary Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.bene_name}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Customer Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.customer_name}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Customer HP :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.customer_hp}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Country :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.country}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="5">
+                  <h2>Provider :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.provider}}
+                </ion-col>
+              </ion-row>
+
+              <!--<ion-row>-->
+                <!--<ion-col size="5">-->
+                  <!--<h2>Booking Expiry :</h2>-->
+                <!--</ion-col>-->
+                <!--<ion-col>-->
+                  <!--{{receiptRes.booking_expiry}}-->
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+
+              <ion-row *ngIf="receiptRes && receiptRes.bank">
+                <ion-col size="5">
+                  <h2>Bank :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.bank ? receiptRes.bank : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="receiptRes && receiptRes.bank_name">
+                <ion-col size="5">
+                  <h2>Bank Name :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.bank_name ? receiptRes.bank_name : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <ion-row *ngIf="receiptRes && receiptRes.bank_acc_number != 0">
+                <ion-col size="5">
+                  <h2>Account Number :</h2>
+                </ion-col>
+                <ion-col text-wrap>
+                  {{receiptRes.bank_acc_number ? receiptRes.bank_acc_number : '-'}}
+                </ion-col>
+              </ion-row>
+
+              <!--<ion-row>-->
+                <!--<ion-col size="5">-->
+                  <!--<h2>Trxn Info :</h2>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-wrap="" size="6">-->
+                  <!--{{receiptRes.txnInfo ? receiptRes.txnInfo : '-'}}-->
+
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+            </ion-grid>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                  <ion-button type="button" style="margin:0px;align-items: center" (click)="shareTrxn(receiptRes)"  slot="right" color="danger">Share</ion-button>
+                </ion-col>
+                <ion-col size="5"></ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-list>
+      </div>
+      <!--endregion payment receipt-->
+    </div>
+
+    <div *ngSwitchCase="'eremitCheckStatus'">
+      <div>
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">Transaction ID</ion-label>
+          <ion-input #trxid type="text" [(ngModel)]="todoeremit.check_trans_id" placeholder="Transaction ID" required name="trxid"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="todoeremit.pin_status_ms">
+          <ion-label position="fixed" style="font-size: 13px;">Pin Status</ion-label>
+          <ion-input #trxid type="text" [(ngModel)]="todoeremit.pin_status_ms" required name="pstatus"></ion-input>
+        </ion-item>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <ion-button  type="submit" color="danger" shape="round" size="large" (click)="eremitCheckStatus()">SEARCH</ion-button></ion-col>
+          <!--<ion-col width-50><button style="font-size: 14px;margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="submitBankTopUp(selectedBank)">TODAY'S RECORD</button></ion-col>-->
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'CekMessage'">
+      <div>
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">From Date</ion-label>
+          <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="cekMsgFromDt" placeholder="Select From Date (optional)"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">To Date</ion-label>
+          <ion-datetime displayFormat="DD MMM YYYY" text-wrap [(ngModel)]="cekMsgToDt" placeholder="Select To Date (optional)"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed" style="font-size: 13px;">Message Type</ion-label>
+          <ion-select #msgtype required style="max-width:100% !important; padding-left:0px;" placeholder="Select" required [(ngModel)]="cekMsgType" name="Type">
+            <ion-select-option *ngFor="let type of msgTypeArray" [value]="type.type">{{type.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <ion-button  type="submit" color="danger" shape="round" size="large" (click)="checkMsg()">SEARCH</ion-button></ion-col>
+          <!--<ion-col width-50><button style="font-size: 14px;margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" color="danger" round large (click)="submitBankTopUp(selectedBank)">TODAY'S RECORD</button></ion-col>-->
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'TopupUserWallet'">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50>
+            <ion-button type="button" style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" type="submit" color="danger" shape="round" size="large">Back</ion-button>
+          </ion-col>
+          <ion-col width-50><ion-button type="button" style="margin-left: auto; margin-right: auto;display: block;" (click)="topupWalletScanQR()" type="submit" color="danger" shape="round" size="large">
+            <ion-icon name="qr-code-outline"></ion-icon>Scan QR</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <!--<div *ngSwitchCase="'eremitBookingList'">-->
+      <!--<h6 padding-left text-center *ngIf="!isEmpty(txnlog)">-->
+        <!--No Txn Log Found-->
+      <!--</h6>-->
+      <!--<ion-list>-->
+        <!--<button ion-item *ngFor="let log of txnlog">-->
+          <!--<h2>Booking ID : {{log.booking_id}}</h2>-->
+          <!--<h2>Customer Name : {{log.customer_name}}</h2>-->
+          <!--<h2>Customer HP : {{log.customer_hp}}</h2><br/>-->
+          <!--<h2>Bene Name : {{log.bene_name}}</h2>-->
+          <!--<h2>CardNo : {{log.bene_card_no}}</h2>-->
+          <!--<h2>Booking DateTime : {{log.booking_datetime}}</h2>-->
+          <!--<h2>Expiry DateTime : {{log.booking_expiry}}</h2>-->
+          <!--<h2>Bank Name : {{log.ic_bank_name}}</h2>-->
+          <!--<h2>Account Number : {{log.ic_acc_number}}</h2>-->
+          <!--<h2>Country : {{log.country}}</h2>-->
+          <!--<h2>Provider : {{log.provider}}</h2>-->
+          <!--<h2>Booked rate : {{log.remit_ex_rate}}</h2>-->
+          <!--<h2>Remit amount in {log.remit_foreign_currency} : {{log.remit_foreign_amt}}</h2>-->
+          <!--<h2 *ngIf="log.remit_ref_trans_id">Remit trxn ref ID : {log.remit_ref_trans_id}</h2>-->
+          <!--<h2>Remit amount in RM : {{log.remit_rm_amt}}</h2>-->
+          <!--<h2>Service charge(RM) : {{log.service_charge}}</h2>-->
+          <!--<h2>Total charge(RM) : {{log.total_charge}}</h2>-->
+          <!--<h2 *ngIf="log.pin_number">Pin Number : {{log.pin_number}}</h2>-->
+
+        <!--</button>-->
+      <!--</ion-list>-->
+      <!--<h6 padding-left text-center *ngIf="txnCount != 0">Transaction: {{txnlog.length}}</h6>-->
+    <!--</div>-->
+	</div>
+
+</ion-content>

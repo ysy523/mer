@@ -1,0 +1,9 @@
+{
+    "/*":{
+        "target":"http://10.168.3.166:8100",
+        "secure":false,
+        "pathRewrite": {"^/api" : ""},
+        "logLevel":"debug"
+    }
+
+}

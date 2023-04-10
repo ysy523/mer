@@ -1,0 +1,59 @@
+<!--
+  Generated template for the AnnouncementPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header mode="md">
+  <ion-toolbar mode="md" color="extralight">
+    <ion-title mode="ios"  class="ion-text-center" style="color: red; text-transform: uppercase">
+      <h6 *ngIf="type=='1'">Pengumuman Penting</h6>
+      <h6 *ngIf="type=='2'">Create Transaction PIN</h6>
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="ion-padding" *ngIf="type=='1'">
+    <img src="assets/sayNo.JPG" height="150" width="150" class="acenter"/>
+    <h5 style="font-weight:bold;text-align: left">Pihak Pengurusan Mobile Money ingin memberi peringatan kepada semua pekedai MM,</h5>
+    <h4 style="font-weight:bold; color: red; text-transform: uppercase;text-align: left">
+      Jangan terima wang atau minta orang luar deposit ke akaun bank Mobile Money melalui pemindahan online atau JomPay.</h4>
+    <h4 style="font-weight:bold;text-align: left">Pihak MM berhak untuk TIDAK TOP UP atau MENOLAK dari baki akaun pekedai tersebut. JANGAN
+      JADI MANGSA PENGUBAHAN WANG HARAM ATAU MANGSA PENIPUAN.
+    </h4>
+    <br>
+    <div  class="ion-text-center">
+    <ion-button type="submit" color="danger" shape="round" size="small" (click)="dismiss()">CLOSE
+    </ion-button>
+  </div>
+  </div>
+
+  <div *ngIf="type=='2'">
+    <div style="font-weight: bold; text-align: center;">
+      <span><h6>TAC untuk transaksi diganti dengan PIN TRANSAKSI 6-Digit. Sila ikut arahan untuk tetapkan PIN TRANSAKSI anda.</h6></span>
+    </div>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 13px;">PIN</ion-label>
+      <ion-input placeholder="New PIN" #hp type="text" [(ngModel)]="pin" required name="Pin"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 13px;">Confirm PIN</ion-label>
+      <ion-input placeholder="Confirm your PIN" #hp type="text" [(ngModel)]="cpin" required name="cpPin"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 13px;">TAC</ion-label>
+      <ion-input placeholder="TAC No." #hp type="text" [(ngModel)]="tac" required name="Tac"></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-40>
+          <ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="submit" color="danger" shape="round" size="large" (click)="getTac()">A.Request TAC</ion-button></ion-col>
+        <ion-col width-40>
+          <ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="submit" color="danger" shape="round" size="large" (click)="createPin()">B.Submit</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

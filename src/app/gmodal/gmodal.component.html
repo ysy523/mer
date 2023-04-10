@@ -1,0 +1,142 @@
+<!--
+  Generated template for the GmodalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="opaque">
+  <ion-toolbar mode="md" color="extralight" >
+    <ion-title class ="ion-text-center"  style="padding-top:15px" >
+      <span *ngIf="action==1" >Payment</span>
+      <span *ngIf="action==2" >Check Pin Status</span>
+      <span *ngIf="action==3" >Redeem eVoucher</span>
+      <span *ngIf="action==4" >Issue/Redeem eStamp</span>
+      <span *ngIf="action==5" >Cash Withdraw</span>
+    </ion-title>
+    <ion-buttons slot="end" style="padding-top:15px">
+      <ion-button (click)="dismiss()">
+        <!-- <span  class="hide show-ios">Cancel</span> -->
+        <ion-icon name="close-outline" showWhen="android,windows"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--scan to pay -->
+  <div *ngIf="action==1 || action==5">
+    <!-- <ion-item>
+      <ion-label fixed style="font-size: 13px;">MMApp ID</ion-label>
+      <ion-input placeholder="MMApp ID" style="font-size: 13px;" #mmappId [(ngModel)]="mmappId" type="text" required name="mmappId"></ion-input>
+    </ion-item> -->
+    <p padding-left *ngIf="action==1">Payment from / Pembayaran dari</p>
+    <p padding-left *ngIf="action == 5">Withdrawal from / Pengeluaran dari</p>
+    <ion-card style="margin-bottom:20px;" *ngIf="toCollect.name"> 
+      <ion-card-content style="padding: 20px; text-align: center;">
+        <ion-icon ios="ios-contact-outline" md="ios-contact-outline" style="font-size: 24px;"></ion-icon>
+        <span style="font-weight: bold; font-size: 22px; text-transform: capitalize;">
+          {{toCollect.name}}
+        </span><br>
+        <span style="font-size: 11px; font-style: italic;">{{mmpId}}</span>
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position ="fixed" style="font-size: 12.5px;">Amount (RM)</ion-label>
+      <ion-input placeholder="" style="font-size: 13px;" #amount [(ngModel)]="toCollect.amount" type="number" required name="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 12.5px;">Remark</ion-label>
+      <ion-input placeholder="" style="font-size: 13px;" #amount [(ngModel)]="toCollect.remark" type="text" required name="text"></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <!-- <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col> -->
+        <ion-col width-100>
+          <ion-button (click)="scanToPay(action)"  type="submit" color="danger" shape="round" size="large">Submit</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- 13/6/2022 added check pin status -->
+  <div *ngIf="action==2" style="text-align: center; margin: 10px 0 10px 0;">
+    <!-- <h2 style="text-align: center;font-weight: bold; margin: 10px 0 10px 0;"> -->
+      <p>Booking ID: {{checkPinStatus.booking_id }}</p>  
+      <p>Transaction ID: {{checkPinStatus.trans_id }}</p>  
+      <span *ngIf="checkPinStatus.pin_status != ''" style="font-weight: bold;"><p>Pin Status: {{checkPinStatus.pin_status}}</p></span>
+      <span *ngIf="checkPinStatus.pin_status == ''"><p>Pin Status: Invalid</p></span>
+    <!-- </h2> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" style="margin:0px;align-items: center" (click)="dismiss()"  item-right color="danger">Close</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+   <!-- 13/6/2022 added check pin status -->
+
+   <!-- KITA evoucher redemption-->
+   <div *ngIf="action==3">
+    <!-- <p padding-left style="color: red;">Request by</p> -->
+    <ion-card style="margin-bottom:20px;" *ngIf="toRedeem.username"> 
+      <ion-card-content style="padding: 20px; text-align: center;">
+        <ion-icon ios="ios-contact-outline" md="ios-contact-outline" style="font-size: 24px;"></ion-icon>
+        <span style="font-weight: bold; font-size: 22px; text-transform: capitalize;">
+          {{toRedeem.username}}
+        </span><br>
+        <span style="font-size: 11px; font-style: italic;">{{toRedeem.mmappId}}</span>
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <ion-label position ="fixed" style="font-size: 13px;">Value ({{toRedeem.unit}})</ion-label>
+      <ion-input placeholder="" style="font-size: 13px;" #amount [(ngModel)]="toRedeem.value" type="number" required name="amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 13px;">Remark</ion-label>
+      <ion-input placeholder="" style="font-size: 13px;" #remark [disabled]="true" [(ngModel)]="toRedeem.remark" type="text" required name="text"></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <!-- <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col> -->
+        <ion-col width-100>
+          <ion-button style="margin-left: auto; margin-right: auto;display: block;" (click)="redeemVoucher()"  type="submit" color="danger" shape="round" size="large">Submit</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+ <!-- estamp issuance/redemption-->
+ <div *ngIf="action==4">
+  <!-- <p padding-left style="color: red;">Request by</p> -->
+  <ion-card style="margin-bottom:20px;" *ngIf="toIssue.username"> 
+    <ion-card-content style="padding: 20px; text-align: center;">
+      <ion-icon ios="ios-contact-outline" md="ios-contact-outline" style="font-size: 24px;"></ion-icon>
+      <span style="font-weight: bold; font-size: 22px; text-transform: capitalize;">
+        {{toIssue.username}}
+      </span><br>
+      <span style="font-size: 11px; font-style: italic;">{{toIssue.mmappId}}</span>
+    </ion-card-content>
+  </ion-card>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 12.5px;">Value ({{toIssue.unit}})</ion-label>
+    <ion-input placeholder="" style="font-size: 13px;" #amount [(ngModel)]="toIssue.value" type="number" required name="amount"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 12.5px;">Action</ion-label>
+    <ion-select #action required style="max-width:100% !important; padding-left:0px;font-size: 13px;" (ngModelChange)="onActionChange($event)" [(ngModel)]="toIssue.action" name="action">
+    <ion-select-option *ngFor="let action of actionList" [value]="action.action_id">{{action.action_name}}</ion-select-option>
+  </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 12.5px;">Remark</ion-label>
+    <ion-input placeholder="" style="font-size: 13px;" #amount [(ngModel)]="toIssue.remark" type="text" required name="text"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col> -->
+      <ion-col width-100>
+        <ion-button style="margin-left:auto; margin-right: auto;display:block;" (click)="issueRedeemStamp()"  type="submit" color="danger" shape="round" size="large">Submit</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+ </div> 
+
+</ion-content>

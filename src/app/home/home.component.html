@@ -1,0 +1,194 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar class="opaque">
+    <ion-title></ion-title>
+    <!-- <ion-buttons left>
+      <div padding (click)="navToRemittance('CekMessage')" >
+        <span style="color: white; font-size: 14px;font-weight: bold; margin-right: 5px;"> 
+          <ion-icon name="mail"></ion-icon>
+        </span>
+      </div>
+    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <div (click)="navToRemittance('Logout')" style ="margin-top:10px">
+        <span style="color: white; font-size: 14px;font-weight: bold; margin-right: 5px; padding-top: 5px;"> Log Out</span>
+        <!-- <button fill="clear" (tap)="navToRemittance('Logout')"> Log Out</button> -->
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content padding>
+  <div class="bg" >
+    <div style="text-align: center; margin: 0 0 10px 0; height: 25%; line-height: 18px;color: white;">
+      <div style="padding: 10px;">
+        <span style="font-size: 15px;padding-bottom: 5px;">WELCOME BACK,</span> <br />
+        <div style="font-size: 15px;">Merchant</div>
+        <div style="font-size: 17px; font-weight: bold">{{tomain.merchantcode}}</div>
+        <!--<span style="margin-top: 15px;">MMPID: {{mmpid}}</span><br/>-->
+        <span style="font-style: italic; font-size: 13px;">{{dateNow}}</span><br>
+        <span style="font-style: italic; font-size: 13px;">ver. {{showversion}}</span> <br><br>
+
+        <span>
+          <button (click)="onScanQRToCollect(1)" class="scanBtn" name="scan" id="scan" fill="clear">
+            <ion-icon slot="icon-only" name="qr-code-outline" style="vertical-align:middle"></ion-icon>
+            <span style="font-size: 13px; margin:0 0 5px 5px;vertical-align: middle;">Scan to Pay</span>
+          </button>
+
+          <button (click)="onScanQRToCollect(5)" class="scanBtn" name="scan" id="scan" fill="clear">
+            <ion-icon slot="icon-only" name="qr-code-outline" style="vertical-align:middle"></ion-icon>
+            <span style="font-size: 13px; margin:0 0 5px 5px;vertical-align: middle;">Scan to Withdraw</span>
+          </button>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- <div (click)="navToRemittance('Logout')">
+      <span style="color: black; font-size: 14px;font-weight: bold; margin-right: 5px;"> Log Out</span>
+      <button fill="clear" (tap)="navToRemittance('Logout')"> Log Out</button> 
+    </div> -->
+
+
+
+
+    <div style="margin-top: 25px; width: 100%; height: 100%; ">
+      <!--<div class="greeting">-->
+      <!--<span >Welcome, what would you like to do today?</span>-->
+      <!--</div>-->
+      <div style="height: 100%">
+        <ion-grid style="padding: 8px 0;height: 100%;">
+          <ion-row id="row" style=" margin: 3px 16px;  border: 1px dashed #e2e2e2;">
+            <ion-col size="4" class="" (click)="navToRemittance('Remittance')">
+              <div class="button_wrapper">
+                <!-- <img src="assets/icon/cashout.png"> -->
+                <h4 class="menu-text" text-wrap>Jual PIN</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToKadar()">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/transferMoney.png">-->
+                <!-- <ion-button class="button_wrapper" fill="clear" color="dark" (click)="navToRemittance('Kadar')">Kadar</ion-button> -->
+                <h4 class="menu-text" text-wrap>Kadar</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('CekPin')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/topup.png">-->
+                <h4 class="menu-text" text-wrap>Cek Pin</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToRemittance('DoBankTopUp')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/trxHist.png">-->
+                <h4 class="menu-text" text-wrap>Bank TopUp</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('CekBaki')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/topup.png">-->
+                <h4 class="menu-text" text-wrap>Cek Baki</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('DoReportProblem')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/request.png">-->
+                <h4 class="menu-text" text-wrap>Report Masalah</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToRemittance('CekAkaun')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/inbox.png">-->
+                <h4 class="menu-text" text-wrap>Cek Akaun MM</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('UpdateTxnPin')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/update-password.png">-->
+                <h4 class="menu-text" text-wrap>Change Txn PIN</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('eremitPay')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/update-password.png">-->
+                <h4 class="menu-text" style="font-weight:500 !important; color: gray; margin-top:5px; white-space: normal;"  text-wrap>
+                  eRemit Pay Booking</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToRemittance('eremitCheckStatus')">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/update-password.png">-->
+                <h4 class="menu-text" style="font-weight:500 !important; color: gray; white-space: normal;" text-wrap>eRemit
+                  Check Status</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToERemitBookingList()">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/update-password.png">-->
+                <h4 class="menu-text" style="font-weight:500 !important; color: gray; white-space: normal; " text-wrap>eRemit
+                  Booking List</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="viewCommission()">
+              <div class="button_wrapper">
+                <!--<img src="assets/icon/update.png">-->
+                <h4 class="menu-text" text-wrap>Commission</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToPrepaid()">
+              <div class="button_wrapper">
+                <h4 class="menu-text" text-wrap>Prepaid PIN</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToPrepaidList()">
+              <div class="button_wrapper">
+                <h4 class="menu-text" text-wrap>Cek Prepaid PIN</h4>
+              </div>
+            </ion-col>
+            <ion-col size="4" class="" (click)="navToRemittance('TopupUserWallet')">
+              <div class="button_wrapper">
+                <h4 class="menu-text" style="white-space: normal;" text-wrap>TopUp User Wallet</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToEStamp()" >
+              <div class="button_wrapper">
+                <h4 class="menu-text" text-wrap>e-Stamp</h4>
+              </div>
+            </ion-col>
+
+            <ion-col size="4" class="" (click)="navToInviteUser()">
+              <div class="button_wrapper">
+                <h4 class="menu-text" text-wrap>Invite Link</h4>
+              </div>
+            </ion-col> 
+            <ion-col size="4" class="" (click)="navToRedemption()">
+              <div class="button_wrapper">
+                <h4 class="menu-text" text-wrap>KITA Voucher</h4>
+              </div>
+            </ion-col> 
+
+
+
+            <!-- <ion-col col-4="" class="" (tap)="navToRemittance('Logout')">
+                <div class="button_wrapper" style="height: 79px;">
+                  <h4 class="menu-text" text-wrap>Log Out</h4>
+                </div>
+              </ion-col> -->
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,57 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+//  Force text-wrap on <ion-select>
+ion-select::part(placeholder),
+ion-select::part(text) {
+  white-space: normal !important;
+}
+// Force text-wrap on <ion-select-option>'s when shown in an Ionic Alert
+ion-alert.select-alert {
+  // These widths are pretty arbitrary, so you're use-case(s) could required different widths:
+  --width: 33vw !important;
+  --max-width: 66vw !important;
+
+  .select-interface-option .alert-radio-label,
+  .select-interface-option .alert-checkbox-label {
+    white-space: normal !important;
+  }
+
+}
+
+.announcement{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    right: 5%;
+    left: 5%;
+    top:5%;
+    bottom:5%;
+}

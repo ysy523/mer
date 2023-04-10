@@ -1,0 +1,35 @@
+<!--
+  Generated template for the InvitePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-buttons left>
+      <button ion-button icon-only (click)="pop()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons> -->
+    <ion-title class="ion-text-center"  style="padding-top:10px;">
+      <span style="font-size: 0.6rem; ">ver. {{showversion}}</span><br/>
+      <span>Invite User</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div>
+    <ion-item>
+      <ion-label position="fixed" style="font-size: 12.5px;">HP No. </ion-label>
+      <ion-input placeholder="0179876543" style="font-size: 13px;" #hpNo [(ngModel)]="hpno"  type="text" (keypress)="keyPressNumbers($event)" inputmode="numeric" required name="hpNo"></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col size="6"><ion-button  (click)="back()" type="submit" color="danger" shape="round" size="large">Back</ion-button></ion-col>
+        <ion-col size="6"><ion-button  (click)="submit()"  type="submit" color="danger" shape="round" size="large">Submit</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

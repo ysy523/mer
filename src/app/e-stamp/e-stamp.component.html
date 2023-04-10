@@ -1,0 +1,233 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" style ="padding-top:10px;">
+      <span style="font-size: 0.6rem; ">ver. {{showversion}}</span><br/>
+      <span *ngIf="section == 'e-Stamp'">e-Stamp</span>
+      <span *ngIf="section == 'IssueRedeem'">Issue/Redeem e-Stamp</span>
+      <span *ngIf="section == 'History'">Transaction History</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #mycontent>
+  <div *ngIf="section == 'e-Stamp'">
+    <ion-item (click)="navToSection('IssueRedeem')">
+      <ion-label text-wrap>Issue/Redeem e-Stamp</ion-label>
+    </ion-item>
+    <!-- <ion-item (click)="navToSection('Redeem')">
+      <ion-label text-wrap="" >Redeem e-Stamp</ion-label>
+    </ion-item> -->
+    <ion-item (click)="navToSection('History')">
+      <ion-label text-wrap>Transaction History</ion-label>
+    </ion-item>
+  </div>
+
+  <div *ngIf="section == 'History'">
+    <ion-card style="margin-bottom:5px;" *ngIf="toIssue.name">
+      <ion-card-content style="padding: 10px; text-align: center;">
+        <span style="font-weight: bold; font-size: 15px">
+          <ion-icon ios="ios-contact-outline" md="ios-contact-outline"></ion-icon>  {{toIssue.name}}
+        </span><br>
+        <span style="font-size: 11px; font-style:italic;">{{toIssue.mmappId}}</span>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="section == 'IssueRedeem'">
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col size="6"><ion-button (click)="back()"  type="submit" color="danger" shape="round"  size="large">Back</ion-button></ion-col>
+        <ion-col size="6"><ion-button (click)="scanToIssueRedeem()"  type="submit" color="danger" shape="round" size="large">SCAN QR</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <div *ngIf="section == 'IssueRedeem'">
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">MMApp ID</ion-label>
+      <ion-input placeholder="MMApp ID" style="font-size: 13px;" #mmappId [(ngModel)]="toIssue.mmappId" type="text" required name="mmappId"></ion-input>
+      <button type="button" (click)="scanQR()" color="danger" ion-button item-right>
+        <ion-icon name="qr-code-outline"></ion-icon>Scan QR
+      </button>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">No. of e-Stamp</ion-label>
+      <ion-input placeholder="eStampNo" style="font-size: 13px;" #eStampNo [(ngModel)]="toIssue.eStampNo" type="number" required name="eStampNo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">Action</ion-label>
+      <ion-select #action required style="max-width:100% !important; padding-left:0px;font-size: 13px;" (ngModelChange)="onActionChange($event)" [(ngModel)]="toIssue.action" name="action">
+      <ion-option *ngFor="let action of actionList" [value]="action.action_id">{{action.action_name}}</ion-option>
+    </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">Remark</ion-label>
+      <ion-input placeholder="Description" style="font-size: 13px;" #remark [(ngModel)]="toIssue.remark" type="text" name="remark"></ion-input>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="issueRedeemPoints()" ion-button type="submit" color="danger" round large>Submit</button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div> -->
+
+  <div *ngIf="section == 'History'">
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col size="6"><ion-button  (click)="back()"  type="submit" color="danger" shape="round" size="large">Back</ion-button></ion-col>
+        <ion-col size="6"><ion-button  (click)="scanQRGetHistory()"  type="submit" color="danger" shape="round" size="large">Scan QR</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+    <h4 style="text-align: center" *ngIf="!transHistoryArray.length && isSearch==true"><!--*ngIf="toIssue.mmappId && transHistoryArray && transHistoryArray.length == 0">-->
+      No Transaction Found
+    </h4>
+    <div *ngIf="transHistoryArray.length"> 
+      <ion-item *ngFor="let log of transHistoryArray">
+        <ion-list>
+          <ion-item lines="none"  class="ion-no-padding" style="padding:0px !important;">
+            <ion-label style="font-size: 12.5px ;">{{log.created_at}}</ion-label>
+          </ion-item>
+        
+          <ion-item lines="none"  class="ion-no-padding" style="padding:0px !important;">
+            <ion-label style="font-size:12.5px"><span style="text-transform: capitalize;">{{log.action}}</span> -
+              {{log.action_description}} </ion-label>
+          </ion-item>
+        
+          <ion-item lines="none"  class="ion-no-padding" style="padding:0px !important;">
+            <ion-label style="font-size:11px"><span> Balance </span></ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list slot="end">
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label></ion-label>
+            <ion-note slot="end"></ion-note>
+          </ion-item>
+          <ion-item lines="none" >
+            <ion-label ></ion-label>
+            <ion-note slot="end">
+              <span  *ngIf="log.action == 'issue'">+ {{log.issue_point}}</span>
+              <span  *ngIf="log.action == 'redeem'">- {{log.redeem_point}}</span>
+              
+            </ion-note>
+          </ion-item>
+        
+          <ion-item lines="none">
+            <ion-label></ion-label>
+            <ion-note slot="end">
+             <span> {{log.remaining_point}} </span> 
+            </ion-note>
+          </ion-item>
+        </ion-list>
+          <!-- <ion-grid>
+            <ion-row>
+              <ion-col size="8">
+                {{log.created_at}} <br />
+              </ion-col>
+            </ion-row>
+          
+            <ion-row>
+              <ion-col size="8">
+                <span style="text-transform: capitalize;">{{log.action}}</span> - {{log.action_description}}
+              </ion-col>
+          
+              <ion-col size="4">
+                <p><span *ngIf="log.action == 'issue'">+ {{log.issue_point}}</span>
+                  <span *ngIf="log.action == 'redeem'">- {{log.redeem_point}}</span>
+                </p>
+              </ion-col>
+          
+            </ion-row>
+          
+            <ion-row>
+              <ion-col size="8">
+                <p>Balance </p>
+              </ion-col>
+          
+              <ion-col size="4">
+                <p>{{log.remaining_point}} </p>
+              </ion-col>
+          
+            </ion-row>
+          </ion-grid> -->
+        <!-- <div style="float: left; margin-bottom: 10px; line-height: 18px; margin-bottom: 5px; width: 70%;">
+          {{log.created_at}} <br/>
+          <span>
+            <span style="text-transform: capitalize;">{{log.action}}</span> - {{log.action_description}} 
+          </span> 
+        </div>
+        <div style="float: right; text-align: right; padding-top: 36px;width: 20%;">
+          <p><span *ngIf="log.action == 'issue'">+ {{log.issue_point}}</span>
+             <span *ngIf="log.action == 'redeem'">- {{log.redeem_point}}</span>
+          </p>
+        </div><br/>
+        <div style="float: left; width: 100%;">
+          <div style="float: left; text-align: left"><p>Balance </p></div>
+          <div style="float: right; text-align: right"><p>{{log.remaining_point}} </p></div>
+        </div> -->
+
+        <!-- <ion-grid>
+          <ion-row>
+            <ion-col width-30>DateTime</ion-col>
+            <ion-col width-70>{{log.created_at}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-30>Action</ion-col>
+            <ion-col width-70>{{log.action}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-30>Description</ion-col>
+            <ion-col width-70>{{log.action_description}} </ion-col>
+          </ion-row>
+          <ion-row *ngIf="log.action == 'issue'">
+            <ion-col width-30>Issued</ion-col>
+            <ion-col width-70>{{log.issue_point}} </ion-col>
+          </ion-row>
+          <ion-row *ngIf="log.action == 'redeem'">
+            <ion-col width-30>Redeemed</ion-col>
+            <ion-col width-70>{{log.redeem_point}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col width-30>Balance</ion-col>
+            <ion-col width-70>{{log.remaining_point}} </ion-col>
+          </ion-row>
+        </ion-grid> -->
+
+
+        <!-- <h2>DateTime : {{log.created_at}}<br />
+            Action : {{log.action}}<br />
+            Description : {{log.action_description}}<br />
+            <span *ngIf="log.action == 'issue'">e-Stamp Issued: {{log.issue_point}}<br /></span>
+            <span *ngIf="log.action == 'redeem'">e-Stamp Redeemed: {{log.redeem_point}}<br /></span>
+            e-Stamp Balance: {{log.remaining_point}}<br />
+        </h2> -->
+      </ion-item>
+    </div>
+
+    <!-- <div *ngIf="transHistoryArray.length">
+      <ion-card *ngFor="let log of transHistoryArray" class="content">
+        <div style="float: left; margin-bottom: 10px; line-height: 18px; margin-bottom: 5px; width: 70%;">
+          {{log.created_at}} <br/>
+          <span>
+            <span>
+              {{log.action}} - {{log.action_description}} 
+            </span>
+          </span> <br/>
+        </div>
+        <div style="float: right; text-align: right; padding-top: 36px;width: 20%;">
+          <p><span *ngIf="log.action == 'issue'">+ {{log.issue_point}}</span>
+             <span *ngIf="log.action == 'redeem'">- {{log.redeem_point}}</span>
+          </p>
+        </div>
+        <div style="float: left; width: 100%;">
+          <div style="float: left; text-align: left"><p>Balance </p></div>
+          <div style="float: right; text-align: right"><p>{{log.remaining_point}} </p></div>
+        </div>
+      </ion-card>
+    </div> -->
+    
+  </div>
+</ion-content>

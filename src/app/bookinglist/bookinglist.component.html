@@ -1,0 +1,275 @@
+<!--
+  Generated template for the Log page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title  class="ion-text-center" style="padding-top:10px;">
+      <span style="font-size: 0.6rem; padding:0px">ver. {{showversion}}</span><br /> eRemit Booking
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--<ion-toolbar *ngIf="searchparams.filtervalue" no-border-top no-border-bottom>-->
+    <!--<ion-grid><ion-row>-->
+      <!--<ion-col style="flex:9" no-padding no-lines>-->
+        <!--<button ion-item>Keyword : {{searchparams.filtervalue}}-->
+        <!--</button>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--</ion-grid>-->
+  <!--</ion-toolbar>-->
+
+  <!--<h6 padding-left text-center><span margin-right>From: {{this.searchparams.fromdate}} </span> To: {{this.searchparams.todate}}</h6>-->
+  <h6 padding-left text-center *ngIf="!isEmpty(txnlog)">
+    No Booking Found
+  </h6>
+  <ion-list>
+    <div ion-item *ngFor="let log of txnlog">
+    <!--<button  >-->
+
+      <ion-grid no-padding class="bookinglist">
+        <ion-row>
+          <ion-col size="5" class="title">
+            <h6>Merchant :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  {{log.merchant_name}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5"  class="title">
+            <h6>Merchant ID :</h6>
+          </ion-col>
+          <ion-col size="6"  class="ion-text-wrap">
+            <h6> {{merchparams.merchantcode}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5"  class="title">
+            <h6>Booking ID : </h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> {{log.booking_id}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5"  class="title">
+            <h6>Payment DateTime :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  {{log.booking_paidtime}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5"  class="title">
+            <h6>Booking DateTime :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>{{log.booking_datetime}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="log.remit_ref_trans_id">
+          <ion-col size="5"  class="title">
+            <h6>Transaction ID. :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> {{log.remit_ref_trans_id}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5"  class="title">
+            <h6>Amount Collected :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  RM {{log.total_charge}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Remit Amount :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> RM {{log.remit_rm_amt}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Exchange Rate :</h6>
+          </ion-col>
+          <ion-col  size="6" class="ion-text-wrap">
+            <h6>{{log.remit_ex_rate}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Foreign Currency :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  {{log.remit_foreign_currency}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Foreign Amount :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  {{log.remit_foreign_amt}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Service charge :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> RM {{log.service_charge}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Beneficiary Name :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>{{log.bene_name}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Card No :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>  {{log.bene_card_no}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Customer Name :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> {{log.customer_name}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Customer HP :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6> {{log.customer_hp}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Country :</h6>
+          </ion-col>
+          <ion-col size="6" class="ion-text-wrap">
+            <h6>{{log.country}}</h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="5">
+            <h6>Provider :</h6>
+          </ion-col>
+          <ion-col size="5"  class="ion-text-wrap">
+            <h6>{{log.provider}}</h6>
+          </ion-col>
+        </ion-row>
+
+        <!--<ion-row>-->
+          <!--<ion-col size="5">-->
+            <!--<h2>Booking Expiry :</h2>-->
+          <!--</ion-col>-->
+          <!--<ion-col>-->
+            <!--{{log.booking_expiry}}-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <ion-row *ngIf="log && (log.ic_bank_name || log.ic_bank_name != 0)">
+          <ion-col size="5">
+            <h6>Bank Name :</h6>
+          </ion-col>
+          <ion-col class="ion-text-wrap">
+            <h6> {{log.ic_bank_name ? log.ic_bank_name : '-'}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="log && log.ic_acc_number!= 0">
+          <ion-col size="5">
+            <h6>Account Number :</h6>
+          </ion-col>
+          <ion-col class="ion-text-wrap">
+            <h6> {{log.ic_acc_number ? log.ic_acc_number: '-'}} </h6>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="log && log.pin_number != 0">
+          <ion-col size="5">
+            <h6>Pin Number :</h6>
+          </ion-col>
+          <ion-col class="ion-text-wrap">
+            <h6> {{log.pin_number}} </h6>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="ion-text-center">
+          <!-- <ion-col></ion-col> -->
+          <ion-col size="12">
+            <ion-button type="button" (click)="shareTrxn(log)"   color="danger">Share</ion-button>
+            <ion-button type="button" (click)="checkTrxStatus(log.remit_ref_trans_id, log.booking_id)"  color="danger">Check Status</ion-button>
+           </ion-col>
+           <!-- <ion-col size="6">
+            <ion-button type="button" (click)="checkTrxStatus(log.remit_ref_trans_id, log.booking_id)"  color="danger">Check Status</ion-button>
+           </ion-col> -->
+           <!-- <ion-col></ion-col> -->
+            
+          <!-- </ion-col> -->
+          <!-- <ion-col size="5"></ion-col> -->
+        </ion-row>
+      </ion-grid>
+      <!--<h2>Booking ID : {{log.booking_id}}</h2>-->
+      <!--<h2>Booking DateTime : {{log.booking_datetime}}</h2>-->
+      <!--<h2 *ngIf="log.remit_ref_trans_id">Transaction No.: {{log.remit_ref_trans_id}}</h2>-->
+      <!--<h2>Amount Collected (RM) : {{log.total_charge}}</h2>-->
+      <!--<h2>Remit Amount (RM) : {{log.remit_rm_amt}}</h2>-->
+      <!--<h2>Exchange Rate : {{log.remit_ex_rate}}</h2>-->
+      <!--<h2>Foreign Amount <span *ngIf="log.remit_foreign_currency">({{log.remit_foreign_currency}})</span> : {{log.remit_foreign_amt}}</h2>-->
+      <!--<h2>Service charge (RM) : {{log.service_charge}}</h2>-->
+      <!--<h2>Beneficiary Name : {{log.bene_name}}</h2>-->
+      <!--<h2>Card No : {{log.bene_card_no}}</h2>-->
+      <!--<h2>Customer Name : {{log.customer_name}}</h2>-->
+      <!--<h2>Customer HP : {{log.customer_hp}}</h2>-->
+      <!--<h2>Country : {{log.country}}</h2>-->
+      <!--<h2>Provider : {{log.provider}}</h2>-->
+      <!--<h2>Booking Expiry : {{log.booking_expiry}}</h2>-->
+      <!--<h2>Bank Name : {{log.ic_bank_name}}</h2>-->
+      <!--<h2>Account Number : {{log.ic_acc_number}}</h2>-->
+      <!--<h2 *ngIf="log.pin_number">Pin Number : {{log.pin_number == 0 ? '-' : log.pin_number}}</h2>-->
+    <!--</button>-->
+    </div>
+  </ion-list>
+  <h6 padding-left class="ion-text-center" *ngIf="txnCount != 0">Transaction: {{txnlog.length}}</h6>
+  <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
+    <!--<ion-infinite-scroll-content loadingText="Loading more.."></ion-infinite-scroll-content>-->
+  <!--</ion-infinite-scroll>-->
+</ion-content>

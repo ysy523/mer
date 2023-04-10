@@ -1,0 +1,18 @@
+.toolbar-title {
+    width: 85%;
+    padding-bottom: 8px;
+}
+
+.scanner-btn {
+    text-align: center;
+}
+
+ion-toolbar {
+    padding: 2px;
+    min-height: 55px;
+}
+
+ion-item {
+    --min-height: 0;
+    --inner-padding-bottom: -5px;
+}

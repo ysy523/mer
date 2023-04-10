@@ -1,0 +1,277 @@
+<!--
+  Generated template for the Receipt page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<script src="receipt.ts"></script>
+<ion-header>
+
+<!--   <ion-navbar> -->
+<!--     <ion-title>Receipt</ion-title> -->
+<!--   </ion-navbar> -->
+<ion-toolbar>
+    <ion-title class="ion-text-center">
+      Receipt
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <!-- <span color="primary" showWhen="ios">Cancel</span> -->
+        <ion-icon name="close-outline" showWhen="android,windows"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!--
+	Invoice No.
+
+	Merchant ID
+	Tarikh
+	Transaction ID
+
+	H/P
+	MM Card No.
+	Nilai MoneyPin
+	Bayar
+	Ongkos
+	Ongkos bank
+
+	Jumlah Bayaran
+
+	PIN
+	Country
+	Provider
+	Hantar
+	Kadar 
+	Bene 
+	Purpose
+-->
+
+<ion-content >
+	<ion-grid padding style="font-weight:bold; font-family:'Lucida Console', 'Lucida Sans Typewriter', monaco, 'Bitstream Vera Sans Mono', monospace; margin:5px; font-size:13.5px">
+	 	<ion-row class="header">
+	<!--  	<ion-col width-20> -->
+	<!--         <img style="height:auto; width:100%;" src="assets/icon/icon.png"/> -->
+	<!--  	</ion-col> -->
+	<!--     <ion-col width-80 style="text-align: justify;"> -->
+		<ion-col style="padding:0; margin-bottom: 6px;">
+	    	Mobile Money Intl. Sdn Bhd<br>
+			Lot 23-24, 2nd Floor IOI BusinessPark,<br>
+			47100 Puchong, Selangor, Malaysia<br>
+			<!-- (GST ID:002130141184)<br> -->
+			Tel : 03-8073 0200
+		</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Invoice Number
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.taxinvno}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Merchant ID
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{merchparams.merchantcode}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				DateTime
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.datetime}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Transaction Number
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.trxno}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Handphone Number
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.hpno}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="pinparams.card_no!=''">
+			<ion-col style="padding:0; margin: 0;">
+				MM Card No.
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.cardno}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="pinparams.benename!=''">
+			<ion-col style="padding:0; margin: 0;">
+				Beneficiary Name
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.benename}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				MoneyPin Amount in RM
+			</ion-col>
+			<ion-col style="padding:0; margin-left:5px;">
+				{{numberWithCommas(pinparams.pinamount)}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="pinparams.keyinamount!=''">
+			<ion-col style="padding:0; margin: 0;">
+				Collected Amount in RM
+			</ion-col>
+			<ion-col style="padding:0; margin-left:3px;">
+				{{numberWithCommas(pinparams.keyinamount)}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Service Charge in RM
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{numberWithCommas(pinparams.servcharge)}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin:0;">
+				Total Collected Amount in RM
+			</ion-col>
+			<ion-col style="padding:8px; margin-left:2.5px;">
+				<span style="display:inline;   border: thin solid black;padding: 2px 5px 2px 5px;">
+					{{numberWithCommas(pinparams.colamount)}}
+				</span>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				MoneyPin Number
+			</ion-col>
+			<ion-col>
+				{{pinparams.moneypinum}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Purpose
+			</ion-col>
+			
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.purpose }}
+			</ion-col>
+		</ion-row>
+		<ion-row [hidden]="!showpindeno">
+			<ion-col style="padding:0; margin: 0;">
+				Pin Type
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.pindeno}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col style="padding:0; margin: 0;">
+				Address
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{pinparams.address}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="t2p_pinparams.payment_method">
+			<ion-col style="padding:0; margin: 0;">
+				Payment Method
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{t2p_pinparams.payment_method}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="t2p_pinparams.wallet_payment_id">
+			<ion-col style="padding:0; margin: 0;">
+				Wallet Transaction No.
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{t2p_pinparams.wallet_payment_id}}
+			</ion-col>
+		</ion-row>
+		<ion-row *ngIf="t2p_pinparams.card_no">
+			<ion-col style="padding:0; margin: 0;">
+				Tap2Pay Card no.
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{t2p_pinparams.card_no}}
+			</ion-col>
+		</ion-row>
+		<!-- <ion-row>
+			<ion-col style="padding:0; margin: 0;">
+					GST @{{pinparams.gst_percent}} included in total
+			</ion-col>
+			<ion-col style="padding:0; margin: 0;">
+				{{numberWithCommas(pinparams.gst)}}
+			</ion-col>
+		</ion-row> -->
+		<ion-row>
+			<ion-col style="padding:0; margin-top: 5px;">
+				For assistance pls sms: Help#Your question to 012-643 6123, 016-446 6123 or 019-653 6123
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-grid *ngIf="!isNewPin">
+    <h5 style="text-align: center;">Status: <span style="color: #e93a3a;">{{pinStatus}}</span></h5>
+    <!--<ion-row>-->
+      <!--<ion-col style="text-align: right;">-->
+        <!--<h4>Status: </h4>-->
+      <!--</ion-col><br>-->
+      <!--<ion-col style="text-align: left;">-->
+        <!--<h5 style="color: #e93a3a;">{{pinStatus}}</h5>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+	 <ion-row>
+     <!--<ion-col><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="button" color="danger" outline round large (click)="getK4Receipt()">Receipt</button></ion-col>-->
+	  <!--<ion-col><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="button" (click)="checkForm()" color="danger" outline round large>Pin Status</button></ion-col>-->
+<!-- 	  <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="submit" (click)="subvoidForm()" color="danger" round large>Void</button></ion-col> -->
+	 </ion-row>
+	</ion-grid>
+	<ion-grid *ngIf="isNewPin && !isRedeemed && isAllowRedeem && isPinRedeemable">
+		<ion-row>
+		 <ion-col><ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="button" (click)="redeemMoneyPinGetAccountNumber()" color="danger" fill="outline" shape="round"  size="large">Redeem</ion-button></ion-col>
+		</ion-row>
+	 </ion-grid>
+  <ion-grid *ngIf="pinStatusCode == '1' || pinStatus == 'UN-PAID' || pinStatus == 'Valid' || pinStatus == 'Pending'">
+    <ion-row>
+      <ion-col><ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="button" (click)="subvoidForm()" color="danger" fill="outline" shape="round" size="large">Void</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--<ion-grid *ngIf="pinStatusCode == '2' && (pinparams.address.includes('Indonesia') || pinparams.address.includes('indonesia') || pinparams.address.includes('INDONESIA'))">-->
+  <ion-grid *ngIf="pinStatusCode == '2' || pinStatus == 'Redeem' || pinStatus == 'Redeemed'">
+    <ion-row>
+      <ion-col><ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="button" color="danger" fill="outline" shape="round" size="large" (click)="getK4ReceiptCountry()">Receipt</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+	  <ion-col><ion-button style="margin-left: auto; margin-right: auto;display: block;"  type="button" color="danger" fill="outline" shape="round" size="large" (click)="shareTxn()">Share / Copy</ion-button></ion-col>
+	  <!-- <ion-col><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="button" color="danger" outline round large (click)="shareTxn()">Copy</button></ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+
+  <!--<ion-grid *ngIf="pinStatus == 'UN-PAID' || pinStatus=='Valid' || pinStatus =='Pending'">-->
+    <!--<ion-row>-->
+      <!--<ion-col><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="button" (click)="subvoidForm()" color="danger" outline round large>Void</button></ion-col>-->
+    <!--</ion-row>-->
+  <!--</ion-grid>-->
+  <!--<ion-grid *ngIf="pinStatus == 'Redeem'">-->
+    <!--<ion-row>-->
+      <!--<ion-col><button style="margin-left: auto; margin-right: auto;display: block;" ion-button type="button" color="danger" outline round large (click)="getK4Receipt()">Receipt</button></ion-col>-->
+    <!--</ion-row>-->
+  <!--</ion-grid>-->
+</ion-content>

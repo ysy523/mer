@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <!--<button ion-button menuToggle>-->
+    <!--<ion-icon name="menu"></ion-icon>-->
+    <!--</button>-->
+    <ion-buttons slot="start">
+
+      <ion-button icon-only (click)="pop()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"  style="padding-top:10px;">
+      <span style="font-size:0.6rem;">ver. {{showversion}}</span><br />
+
+      <span>Kadar</span>
+
+    </ion-title>
+  </ion-toolbar>
+  <!--<ion-navbar>-->
+  <!--<ion-title>Log</ion-title>-->
+  <!--<ion-buttons left>-->
+  <!--&lt;!&ndash; button one &ndash;&gt;-->
+  <!--<button ion-button icon-only>-->
+  <!--<ion-icon name="arrow-back"></ion-icon>-->
+  <!--</button>-->
+  <!--</ion-buttons>-->
+
+  <!--</ion-navbar>-->
+
+  <!--region toolbar/title-->
+  <!--<ion-toolbar *ngIf="this.pageType == 'Remittance'" no-border-top>-->
+  <!--<ion-segment (ionChange)="changed()" [(ngModel)]="appType">-->
+  <!--<ion-segment-button value="Sale" class="salesegmentbutton">-->
+  <!--1.Sale-->
+  <!--</ion-segment-button>-->
+  <!--<ion-segment-button value="Rate" class="ratesegmentbutton">-->
+  <!--2.Rate-->
+  <!--</ion-segment-button>-->
+  <!--<ion-segment-button value="Log" class="txnsegmentbutton">-->
+  <!--3.Transaction-->
+  <!--</ion-segment-button>-->
+  <!--</ion-segment>-->
+  <!--</ion-toolbar>-->
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" style="z-index:999 !important;">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-label position="fixed">Country</ion-label>
+    <ion-select #country interface="popover" required style="max-width:100% !important; padding-left:0px;"
+      (ngModelChange)="onChange($event)" [(ngModel)]="todo.country" name="country">
+      <ion-select-option *ngFor="let country of countryarray" [value]="country">{{country}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <!-- 				  <ion-item>Balance : RM {{balance}}</ion-item> -->
+    <ion-item *ngFor="let rates of ratearray | myfilter:todo.country" text-wrap>
+      <!--(click)="selectRate(rates)"-->
+      <ion-spinner name="crescent" *ngIf="rates.length<=0"></ion-spinner>
+      <ion-label>
+        <h2>{{rates[2]}} </h2>
+        <p style="display: flex;align-items:center">
+          <ion-img style ="height:32px; width:64px" [src]="getUriEncodeUrl('country',rates[0])"></ion-img>
+          {{rates[0]}}, <ion-img  style ="height:32px; width:64px" [src]="getUriEncodeUrl('provider',rates[1])">
+          </ion-img> {{rates[3]}}
+        </p>
+      </ion-label>
+
+      <!--<button ion-button item-right color="danger">Select</button>-->
+    </ion-item>
+  </ion-list>
+</ion-content>

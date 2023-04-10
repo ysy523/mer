@@ -1,0 +1,187 @@
+<!--
+  Generated template for the RedeemPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-buttons left>
+      <button ion-button icon-only (click)="pop()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons> -->
+    <ion-title class="ion-text-center" style="padding-top:10px">
+      <span style="font-size: 0.6rem;">ver. {{showversion}}</span><br/>
+      <span *ngIf="section == 'Init' || section == 'Redeem'">KITA Voucher</span>
+      <span *ngIf="section == 'History'">Transaction History</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #mycontent>
+  <div *ngIf="section == 'Init'">
+    <ion-item (click)="navToSection('Redeem')">
+      <ion-label text-wrap="">Redemption</ion-label>
+    </ion-item>
+    <ion-item (click)="navToSection('History')">
+      <ion-label text-wrap="">Transaction History</ion-label>
+    </ion-item>
+  </div>
+
+  <!-- <div *ngIf="section == 'History'">
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">MMApp ID</ion-label>
+      <ion-input placeholder="MMApp ID" style="font-size: 13px;" #mmappId [(ngModel)]="toRedeem.mmappId" type="text" required name="mmappId"></ion-input>
+      <button type="button" (click)="scanQR()" color="danger" ion-button item-right>
+        <ion-icon name="qr-code-outline"></ion-icon>Scan QR
+      </button>
+    </ion-item>
+  </div> -->
+
+  <div *ngIf="section == 'Redeem'">
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col size="6"><ion-button (click)="back()"  type="submit" color="danger" shape="round" size="large">Back</ion-button></ion-col>
+        <ion-col size="6"><ion-button  (click)="onScanQRToRedeem()"  type="submit" color="danger" shape="round" size="large">
+          <ion-icon name="qr-code-outline"></ion-icon>Scan QR</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- <div *ngIf="section == 'Redeem'">
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">No. of voucher</ion-label>
+      <ion-input placeholder="eStampNo" style="font-size: 13px;" #eStampNo [(ngModel)]="toRedeem.value" type="number" required name="eStampNo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed style="font-size: 13px;">Remark</ion-label>
+      <ion-input placeholder="Description" style="font-size: 13px;" #remark [(ngModel)]="toRedeem.remark" type="text" name="remark"></ion-input>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="issueRedeemPoints()" ion-button type="submit" color="danger" round large>Submit</button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div> -->
+
+  <div *ngIf="section == 'History'">
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="back()" ion-button type="submit" color="danger" round large>Back</button></ion-col>
+        <ion-col width-50><button style="margin-left: auto; margin-right: auto;display: block;" (click)="getTransHistory()" ion-button type="submit" color="danger" round large>Submit</button></ion-col>
+      </ion-row>
+    </ion-grid> -->
+    <h4 style="text-align:center" *ngIf="!transHistoryArray.length && isSearch==true">
+      No Transaction Found
+    </h4>
+    <div *ngIf="transHistoryArray.length">
+      <ion-item *ngFor="let log of transHistoryArray" >
+      <ion-list>
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+          <ion-label style="font-size: 12.5px ; padding: 0px;">{{log.created_at}}</ion-label>
+       
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+          <ion-label style="font-size: 12.5px ; padding: 0px;"> HP {{log.user_phone}}</ion-label>
+       
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+        <ion-label style=" font-size: 12.5px; padding: 0px;"> <span style="text-transform:capitalize;"> {{log.action}} </span> - <span>{{log.action_description}}</span></ion-label>
+          <!-- <ion-note slot="end" color="tertiary">99</ion-note> -->
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+          <ion-label style="font-size: 11px ;">Balance</ion-label>
+          
+        </ion-item>
+      
+      </ion-list>
+
+      <ion-list slot="end">
+          
+        <ion-item lines="none" class="ion-no-padding" >
+
+          <ion-label></ion-label>
+          <ion-note slot="end" ></ion-note>
+          
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" >
+          <ion-label></ion-label>
+          <ion-note slot="end" ></ion-note>
+          
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+          <ion-label></ion-label>
+          <ion-note slot="end" >{{log.redeem_point}}</ion-note>
+        </ion-item>
+
+        <ion-item lines="none" class="ion-no-padding" style="padding:0px !important;">
+          <ion-label></ion-label>
+          <ion-note slot="end" >{{log.remaining_point}}</ion-note>
+        </ion-item>
+            
+      </ion-list>
+
+
+   
+
+        <!-- <ion-grid style="font-size:14px; ">
+          <ion-row>
+            <ion-col size="8" style="padding:0">
+              <span> {{log.created_at}} </span>
+            </ion-col>
+    
+          </ion-row>
+          <ion-row>
+            <ion-col size="8" style="padding:0">
+              <span> HP {{log.user_phone}} </span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8" style="padding:0">
+              <span style="text-transform:capitalize;"> {{log.action}} </span> - <span>{{log.action_description}}</span>
+            </ion-col>
+    
+            <ion-col size="4" style="padding-left:4px; font-size:12px; word-spacing: normal;" >
+              {{log.redeem_point}}
+            </ion-col>
+    
+          </ion-row>
+    
+          <ion-row>
+            <ion-col size="8">
+              <p style="font-size:13px">Balance</p>
+            </ion-col>
+    
+            <ion-col size="4">
+              <p style="padding:0; font-size:12px; word-spacing: normal;">{{log.remaining_point}}</p>
+            </ion-col>
+    
+          </ion-row>
+        </ion-grid> -->
+        <!-- <div style="float: left; margin-bottom: 10px; line-height: 18px; margin-bottom: 5px; width: 70%;">
+              {{log.created_at}} <br/>
+              <span>HP {{log.user_phone}}</span><br/>
+              <span>
+                <span style="text-transform: capitalize;">{{log.action}}</span> - {{log.action_description}} 
+              </span> 
+            </div>
+            <div style="float: right; text-align: right; padding-top: 36px;width: 20%;">
+              <p> {{log.redeem_point}} </p>
+            </div><br/>
+            <div style="float: left; width: 100%;">
+              <div style="float: left; text-align: left"><p>Balance </p></div>
+              <div style="float: right; text-align: right"><p>{{log.remaining_point}} </p></div>
+            </div> -->
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
