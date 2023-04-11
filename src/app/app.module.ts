@@ -14,9 +14,10 @@ import { BookinglistComponent } from './bookinglist/bookinglist.component';
 import { HomeComponent } from './home/home.component';
 import { LogComponent } from './log/log.component';
 // import { MenuComponent } from './menu/menu.component';
-// import { PinComponent } from './pin/pin.component';
+import { PinComponent } from './pin/pin.component';
 import { PrepaidComponent } from './prepaid/prepaid.component';
-// import { PrepaidlistComponent } from './prepaidlist/prepaidlist.component';
+import { PrepaidmodalComponent } from './prepaidmodal/prepaidmodal.component';
+import { PrepaidlistComponent } from './prepaidlist/prepaidlist.component';
 import { ReceiptComponent } from './receipt/receipt.component';
 import { RemittanceComponent } from './remittance/remittance.component';
 import { CustomSelectComponent } from './custom-select/custom-select.component';
@@ -62,9 +63,9 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 @NgModule({
-  declarations: [AppComponent,LoginComponent,AnnouncementComponent,HomeComponent, ReceiptComponent,RemittanceComponent ,CustomSelectComponent,GmodalComponent,KadarComponent,EStampComponent,RedeemComponent,BookinglistComponent,InviteComponent,LogComponent,MyFilterPipe,MyFilterPipe2,MyFilterPipe3,MyTelcoFilterPipe,MyTelcoTypeFilterPipe,TabIndexDirective,PrepaidComponent ],
+  declarations: [AppComponent,LoginComponent,AnnouncementComponent,HomeComponent, ReceiptComponent,RemittanceComponent ,CustomSelectComponent,GmodalComponent,KadarComponent,EStampComponent,RedeemComponent,BookinglistComponent,InviteComponent,LogComponent,MyFilterPipe,MyFilterPipe2,MyFilterPipe3,MyTelcoFilterPipe,MyTelcoTypeFilterPipe,TabIndexDirective,PrepaidComponent ,PrepaidmodalComponent,PrepaidlistComponent,PinComponent],
   imports: [BrowserModule, IonicModule.forRoot({_forceStatusbarPadding: true}), AppRoutingModule,FormsModule,IonicImageLoaderModule] ,
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },NavParams,File,WebView, NativeStorage,BluetoothSerial,Camera,BarcodeScanner,InAppBrowser,Sql,MediaCapture ,HTTP  ],
+  providers: [File,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },NavParams,WebView, NativeStorage,BluetoothSerial,Camera,BarcodeScanner,InAppBrowser,Sql,MediaCapture ,HTTP  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

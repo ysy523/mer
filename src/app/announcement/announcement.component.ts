@@ -42,7 +42,7 @@ export class AnnouncementComponent implements OnInit {
   // @Input() profile:any
 
   constructor(public navParams: NavParams,private toastCtrl: ToastController
-    ,private platform: Platform,public loadingCtrl: LoadingController,
+    ,public platform: Platform,public loadingCtrl: LoadingController,
     public alertCtrl: AlertController, public modalCtrl:ModalController ,private route:ActivatedRoute) 
     { 
       //  this.route.queryParams.subscribe(params=>{

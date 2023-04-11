@@ -6,9 +6,9 @@ import { AnnouncementComponent } from './announcement/announcement.component';
 import { BookinglistComponent } from './bookinglist/bookinglist.component';
 import { LogComponent } from './log/log.component';
 // import { MenuComponent } from './menu/menu.component';
-// import { PinComponent } from './pin/pin.component';
-// import { PrepaidComponent } from './prepaid/prepaid.component';
-// import { PrepaidlistComponent } from './prepaidlist/prepaidlist.component';
+import { PinComponent } from './pin/pin.component';
+import { PrepaidComponent } from './prepaid/prepaid.component';
+import { PrepaidlistComponent } from './prepaidlist/prepaidlist.component';
 import { RemittanceComponent } from './remittance/remittance.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -21,9 +21,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'remittance', component: RemittanceComponent },
-  // { path: 'prepaidlist', component: PrepaidlistComponent },
-  // { path: 'prepaid', component: PrepaidComponent },
-  // { path: 'pin', component: PinComponent },
+  { path: 'prepaidlist', component: PrepaidlistComponent },
+  { path: 'prepaid', component: PrepaidComponent },
+  { path: 'pin', component: PinComponent },
   // { path: 'menu', component: MenuComponent },
   { path: 'log', component: LogComponent },
   { path: 'customselect', component: CustomSelectComponent },

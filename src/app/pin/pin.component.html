@@ -1,0 +1,37 @@
+<!--
+  Generated template for the PinPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center"  style="padding-top:10px;">
+      <span style="font-size: 0.6 rem; ">ver. {{showversion}}</span><br />
+      <span> NOT USING </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 13px;">Old PIN</ion-label>
+    <ion-input placeholder="Old PIN" #hp type="password" [(ngModel)]="oldpin" required name="Pin"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 13px;">New PIN</ion-label>
+    <ion-input placeholder="New PIN" #hp type="password" [(ngModel)]="newpin" required name="Pin"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed" style="font-size: 13px;">Confirm New PIN</ion-label>
+    <ion-input placeholder="Confirm your New PIN" #hp type="password" [(ngModel)]="cnewpin" required name="cpPin"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <!-- <button style="margin-left: auto; margin-right: auto;display: block;"  -->
+       <ion-button type="submit"
+       color="danger" shape="round" size="large" (click)="updatePin()">Submit</ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
