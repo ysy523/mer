@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-toolbar class="opaque">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="" (click)="goBack()" style="display:none"></ion-back-button>
+    </ion-buttons>
     <ion-title></ion-title>
     <!-- <ion-buttons left>
       <div padding (click)="navToRemittance('CekMessage')" >

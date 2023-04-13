@@ -10,6 +10,8 @@ export class AppComponent {
 
   constructor() {
       // this.show();
+
+      // this.hide();
       
   }
 

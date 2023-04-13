@@ -21,7 +21,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CustomSelectComponent } from '../custom-select/custom-select.component';
 import { ReceiptComponent } from './../receipt/receipt.component';
 import { GmodalComponent } from './../gmodal/gmodal.component';
-//  import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 import { Browser} from '@capacitor/browser';
 
@@ -3372,16 +3372,16 @@ export class RemittanceComponent implements OnInit {
 
  async base64FromPath(paths) {
 
-  // const file = await Filesystem.readFile({
-  //      path:paths,
+  const file = await Filesystem.readFile({
+       path:paths,
       
-  // })
+  })
 
         // const response  = await fetch (path);
         // const blob  = await response.blob();
 
         // console.log("blob",file.data)
-      //  return file.data  
+      return file.data  
     }
 
  
@@ -4508,231 +4508,61 @@ export class RemittanceComponent implements OnInit {
     this.navCtrl.pop();
   }
 
-  topupWalletScanQR(){
+// added 8/9/2021 TopUpWalletT2P
+topupWalletScanQR() {
+  this.barcodeScanner.scan().then(async barcodeData => {
+    console.log('Barcode data', barcodeData);
 
-    this.barcodeScanner.scan().then(async barcodeData => {
-      console.log('Barcode data', barcodeData);
-
-        var regex = /^\d+$/;   
-        if (barcodeData.cancelled == false && barcodeData.text.length == 0){
-        const alert = await  this.alertCtrl.create({
-            header: '',
-            message: 'Invalid QR code, please try again.',
-            buttons: [
-              {
-                text: 'OK',
-                handler: () => {
-                }
-              }
-            ]
-          });
-          await alert.present();
-        } else {
-           
-            if(barcodeData.cancelled== false){
-                let  qrData = barcodeData.text;
-
-                if(qrData){
-
-                    try{
-                          this.loader = await this.loadingCtrl.create();
-                           await this.loader.present();
-
-                          let body = {
-
-                            merchant_code: this.tomain.merchantcode,
-                            password: this.tomain.password,
-                            merchant_trans_id : this.tomain.merchantcode + new Date().valueOf(),
-                            appversion : myGlobals.version,
-                            platform: this.platform.platforms()[0],
-                            device:"ios",
-                            qrvalue: qrData,
-                            fid: 4 //  function id:Top-up user wallet
-                             
-                          };
-
-                          const options: HttpOptions = {
-                            url: myGlobals.url + '/GetUserDetails',
-                            data: body,
-                            method: 'POST',
-                            connectTimeout: myGlobals.timeout,
-                            headers: { 'Content-Type': 'application/json' }
-                          }
-
-                          Http.request(options).then(async (data:any) => {
-                               try {
-                                   await this.loader.dismiss();
-                                   if(data.data.header.response_code == 0){
-
-                                    if(data.body){
-
-                                      if( data.body.aa_uuid == '' || data.body.aa_uuid == null || 
-                                      data.body.prod_code == '' || data.body.prod_code == null) {
-                                    const alert = await this.alertCtrl.create({
-                                      header: 'Invalid',
-                                      message: 'Please try again with a valid QR code [003].',
-                                      buttons: [
-                                        {
-                                          text: 'OK',
-                                          handler: () => {
-                                              
-                                          }
-                                        }
-                                      ]
-                                    })
-                                    await alert.present();
-                                   } else {
-
-                                      this.toTopup.username = data.body.name;
-                                      this.toTopup.mmappId = data.body.aa_uuid;
-                                      this.toTopup.remark = data.body.prod_name;
-                                      this.toTopup.merchant_id = data.merchant_code;
-                                      this.toTopup.prod_code = data.body.prod_code;
-          
-                                    let modalPage = await this.modalCtrl.create({component:GmodalComponent, componentProps: { merchantcode: this.tomain.merchantcode,
-                                    password: this.tomain.password, action: 6, data: this.toTopup}});
-                                      
-                                    modalPage.onDidDismiss();
-                                    await modalPage.present();
-                                   }
-                                         
-                                    }else{
-                                      const alert = await this.alertCtrl.create({
-                                        header: 'Oops error occured',
-                                        message: 'Please try again.',
-                                        buttons: [
-                                          {
-                                            text: 'OK',
-                                            handler: () => {
-                                                
-                                            }
-                                          }
-                                        ]
-                                      })
-                                      await alert.present();
-                                    }
-
-                                   }else{
-
-                                    const alert = await this.alertCtrl.create({
-                                      header: 'Attention',
-                                      message: data.header.response_description,
-                                      buttons: [
-                                        {
-                                          text: 'OK',
-                                          handler: () => {
-                                          
-                                          }
-                                        }
-                                      ]
-                                    })
-                                    
-                                    await alert.present();
-                                       
-                                   }
-                                
-                               }catch(e){
-
-                                await this.loader.dismiss();
-                                console.log("evoucher redeem Ex ERROR!: ", e);
-                              const alert = await this.alertCtrl.create({
-                                  header: 'Redemption Ex Error',
-                                  message: e + ' Please try again.',
-                                  buttons: [
-                                    {
-                                      text: 'OK',
-                                      handler: () => {
-                                        
-                                      }
-                                    }
-                                  ]
-                                })
-                                
-                                await alert.present();
-                                  
-                               }
-                          }).catch(async err =>{
-                            await this.loader.dismiss();
-                            console.log("ERROR evoucher redeem!: ", err);
-                          const alert =await this.alertCtrl.create({
-                                header: 'Request Error',
-                                message: err + ' Please try again.',
-                                buttons: [
-                                    {
-                                      text: 'OK',
-                                      handler: () => {
-                                        
-                                      }
-                                    }
-                                ]
-                            })
-                            
-                           await alert.present();
-
-                          })  
-                        
-                        } catch (e){
-                           console.log('scan qr error',e);
-
-                         const alert =await this.alertCtrl.create({
-                            header: 'Invalid',
-                            message: 'Invalid QR code. Please try again with a valid QR code.',
-                            buttons: [
-                              {
-                                text: 'OK',
-                                handler: () => { 
-                                  // this.section = 'Init';
-                                }
-                              }
-                            ]
-                          })
-                          
-                          await alert.present();
-
-                        }                  
-                } else {
-
-                const alert = await this.alertCtrl.create({
-                    header: 'Invalid',
-                    message: 'Failed to scan QR. Please try again',
-                    buttons: [
-                      {
-                        text: 'OK',
-                        handler: () => {
-                          // this.section = 'Init';
-                        }
-                      }
-                    ]
-                  })
-                  await alert.present();
-                     
-                }
+    var regex = /^\d+$/;
+    if (barcodeData.cancelled == false && !regex.test(barcodeData.text)) {
+      const alert = await this.alertCtrl.create({
+        header: '',
+        message: 'Invalid QR code, please try again.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
             }
+          }
+        ]
+      })
+      await alert.present();
+    }
+    // else if (barcodeData.text.length > 10 || barcodeData.text.length < 10) {
+    // this.alertCtrl.create({
+    //   title: 'Error',
+    //   message: 'Invalid QR code.',
+    //   buttons: [
+    //     {
+    //       text: 'OK',
+    //       handler: () => {
+    //       }
+    //     }
+    //   ]
+    // }).present();
+    // } 
+    else {
+      this.topupwallet.cardno = barcodeData.text;
+    }
 
+  }).catch(async err => {
+
+    console.log("SCAN QR ERROR!: ", err);
+    const alert = await this.alertCtrl.create({
+      header: 'Scan QR Error',
+      message: err,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
         }
-        // else if (barcodeData.text.length > 10 || barcodeData.text.length < 10) {
-          // this.alertCtrl.create({
-          //   title: 'Error',
-          //   message: 'Invalid QR code.',
-          //   buttons: [
-          //     {
-          //       text: 'OK',
-          //       handler: () => {
-          //       }
-          //     }
-          //   ]
-          // }).present();
-        // } 
-        // else {
-        //   this.topupwallet.cardno = barcodeData.text;
+      ]
+    })
 
-        //   console.log ("toupup value",this.topupwallet.cardno)
-        // }
-
-     }).catch(err => {
-         console.log('Error', err);
-     });
-  }
+    await alert.present();
+  });
+}
 
   async topupWallet() {
     if (this.topupwallet.amount == 0) {

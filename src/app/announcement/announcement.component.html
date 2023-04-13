@@ -97,7 +97,7 @@
     </h6>
 
     <br>
-    <div  class="ion-text-center">
+    <div *ngIf="descrip_en" class="ion-text-center">
     <ion-button  type="submit" color="danger" shape="round" size="small"  (click)="handleAccept()">I Acknowledge (Saya Faham / 我同意)</ion-button>
      </div>
     </div>
@@ -142,7 +142,7 @@
         </h6> -->
     
         <br>
-        <div  class="ion-text-center">
+        <div *ngIf="a_title" class="ion-text-center">
         <ion-button  type="submit" color="danger" shape="round" size="small"  (click)="handleAccept1()">Close</ion-button>
          </div>
         </div>
@@ -185,7 +185,7 @@
           </h6> -->
       
           <br>
-          <div  class="ion-text-center">
+          <div *ngIf="b_title" class="ion-text-center">
           <ion-button  type="submit" size="small" color="danger" shape ="round" (click)="handleAccept2()">Close</ion-button>
           </div>
           </div>

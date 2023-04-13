@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'merchant app',
+  appName: 'MM Merchant',
   webDir: 'www',
   bundledWebRuntime: false,
   server: {
@@ -31,7 +31,7 @@ const config: CapacitorConfig = {
       spinnerColor: "#999999",
       splashFullScreen: true,
       splashImmersive: true,
-      layoutName: "mechant_app",
+      layoutName: "MM Merchant",
       useDialog: true,
     },
     InAppBrowser: {

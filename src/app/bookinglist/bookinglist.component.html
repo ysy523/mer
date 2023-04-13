@@ -6,6 +6,9 @@
 -->
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title  class="ion-text-center" style="padding-top:10px;">
       <span style="font-size: 0.6rem; padding:0px">ver. {{showversion}}</span><br /> eRemit Booking
     </ion-title>
@@ -37,7 +40,7 @@
             <h6>Merchant :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  {{log.merchant_name}} </h6>
+            <h6>  {{log.merchant_name || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -46,7 +49,7 @@
             <h6>Merchant ID :</h6>
           </ion-col>
           <ion-col size="6"  class="ion-text-wrap">
-            <h6> {{merchparams.merchantcode}} </h6>
+            <h6> {{merchparams.merchantcode || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -55,7 +58,7 @@
             <h6>Booking ID : </h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> {{log.booking_id}} </h6>
+            <h6> {{log.booking_id || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -64,7 +67,7 @@
             <h6>Payment DateTime :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  {{log.booking_paidtime}} </h6>
+            <h6>  {{log.booking_paidtime || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -73,7 +76,7 @@
             <h6>Booking DateTime :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>{{log.booking_datetime}} </h6>
+            <h6>{{log.booking_datetime || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -82,7 +85,7 @@
             <h6>Transaction ID. :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> {{log.remit_ref_trans_id}} </h6>
+            <h6> {{log.remit_ref_trans_id || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -91,7 +94,7 @@
             <h6>Amount Collected :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  RM {{log.total_charge}} </h6>
+            <h6>  RM {{log.total_charge || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -100,7 +103,7 @@
             <h6>Remit Amount :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> RM {{log.remit_rm_amt}} </h6>
+            <h6> RM {{log.remit_rm_amt || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -109,7 +112,7 @@
             <h6>Exchange Rate :</h6>
           </ion-col>
           <ion-col  size="6" class="ion-text-wrap">
-            <h6>{{log.remit_ex_rate}} </h6>
+            <h6>{{log.remit_ex_rate || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -118,7 +121,7 @@
             <h6>Foreign Currency :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  {{log.remit_foreign_currency}} </h6>
+            <h6>  {{log.remit_foreign_currency || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -127,7 +130,7 @@
             <h6>Foreign Amount :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  {{log.remit_foreign_amt}} </h6>
+            <h6>  {{log.remit_foreign_amt || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -136,7 +139,7 @@
             <h6>Service charge :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> RM {{log.service_charge}} </h6>
+            <h6> RM {{log.service_charge || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -145,7 +148,7 @@
             <h6>Beneficiary Name :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>{{log.bene_name}} </h6>
+            <h6>{{log.bene_name || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -154,7 +157,7 @@
             <h6>Card No :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>  {{log.bene_card_no}} </h6>
+            <h6>  {{log.bene_card_no || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -163,7 +166,7 @@
             <h6>Customer Name :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> {{log.customer_name}} </h6>
+            <h6> {{log.customer_name || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -172,7 +175,7 @@
             <h6>Customer HP :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6> {{log.customer_hp}} </h6>
+            <h6> {{log.customer_hp || ""}} </h6>
           </ion-col>
         </ion-row>
 
@@ -181,7 +184,7 @@
             <h6>Country :</h6>
           </ion-col>
           <ion-col size="6" class="ion-text-wrap">
-            <h6>{{log.country}}</h6>
+            <h6>{{log.country || ""}}</h6>
           </ion-col>
         </ion-row>
 
@@ -190,7 +193,7 @@
             <h6>Provider :</h6>
           </ion-col>
           <ion-col size="5"  class="ion-text-wrap">
-            <h6>{{log.provider}}</h6>
+            <h6>{{log.provider || ""}}</h6>
           </ion-col>
         </ion-row>
 

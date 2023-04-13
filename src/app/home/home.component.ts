@@ -79,6 +79,8 @@ export class HomeComponent implements OnInit {
     // "platform": this.platform._platforms,
     // "device": this.platform['_ua'].toString(),
 
+   
+      
     
 
     let newDt = new Date();
@@ -95,8 +97,9 @@ export class HomeComponent implements OnInit {
       this.nopinModal()
     }
 
-
   }
+
+  goBack(){}
   async modal() {
     // add modal for announment
     const modal = await this.modalCtrl.create
